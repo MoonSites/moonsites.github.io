@@ -1,0 +1,41 @@
+.flat, .flat2 {
+    font-size: 100%;
+    border: none;
+    margin: 3vh 2vw 3vh 0;
+    border-radius: 6px 31%;
+    box-shadow: 0 0 9px 2px #263044;
+    padding: 2vh 3vw;
+    color: #BFB7AD; 
+    filter: blur(50px);
+    background: linear-gradient(95deg, rgb(103, 58, 182), rgb(65, 38, 113));
+    -webkit-transition:all .4s linear;
+    transition:all .4s linear;
+    text-align: center;
+    cursor: pointer;
+    -webkit-user-select: none;
+    display: inline-block;
+    align-self: flex-end;
+    min-width: 150px;
+    }
+
+.flat2 {
+    filter: blur(0);
+}
+
+.flat2.true {
+    background: -webkit-linear-gradient(5deg, #2DB272, #5FD89E);
+    background: -o-linear-gradient(5deg, #2DB272, #5FD89E);
+    background: linear-gradient(95deg, #2DB272, #5FD89E);
+    color: #222;
+}
+
+.flat2.false {
+    background: -webkit-linear-gradient(5deg, #F06A97, #F08DAF);
+    background: -o-linear-gradient(5deg, #F06A97, #F08DAF);
+    background: linear-gradient(95deg, #F06A97, #F08DAF);                
+    color: #222;
+}
+     
+.flat2:active { 
+    filter: blur(50px);
+}   
