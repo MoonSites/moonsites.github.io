@@ -38,4 +38,9 @@
      
 .flat2:active { 
     filter: blur(50px);
-}   
+    outline: none;
+}
+
+.flat2:hover, flat2:focus {
+    outline: none;
+}
