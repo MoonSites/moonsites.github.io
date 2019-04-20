@@ -1,2 +1,2 @@
 # reality.github.io
-Сайт ё
+Сайт Reality, здесь можно пройти тест.
