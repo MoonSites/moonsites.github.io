@@ -1,0 +1,203 @@
+@font-face {
+	font-family: 'Lato';
+	src: url('https://moonsites.github.io/fonts/Lato-Regular.ttf') format('truetype');
+}
+@font-face {
+	font-family: 'Open Sans';
+	src: url('https://moonsites.github.io/fonts/OpenSans-Regular.ttf') format('truetype');
+}
+
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+	padding: 10px;
+	background: #1b1b1b;
+	font-family: 'Open Sans', sans-serif;
+	display: flex;
+	-webkit-justify-content: center;
+	        justify-content: center;
+	-webkit-align-items: center;
+	        align-items: center;
+	min-height: 100vh;
+}
+
+#calcButtonsParent {
+	display: grid;
+    max-width : calc(20vw + 10px * 3);
+    max-height: calc(30vw + 10px * 6 + 100px);
+	gap: 10px;
+	grid-template-columns: repeat(4, 1fr);
+	
+	grid-template-areas:
+	"P P P P"
+    "A A A A"
+    ". . . ."
+    ". . . ."
+    ". . . ."
+    ". . . ."
+    ". . . B"
+    ". . . B";
+    
+    margin-left: auto;
+}
+
+#calcButtonsParent .calcBtn {
+	font-size: 22px;
+	width: 5vw;
+	height: 5vw;
+	border: none;
+	-webkit-border-radius: 50%;
+	        border-radius: 50%;
+	line-height: 5.1vw;
+	
+	font-family: 'Lato', sans-serif;
+	font-weight: bold;
+	cursor: pointer;
+
+    transition: all .3s ease;
+}
+
+#calcButtonsParent .calcBtn:hover {
+	filter: brightness(1.2);
+}
+
+#calcButtonsParent .calcBtn:active {
+	filter: brightness(2.0);
+}
+
+#calcButtonsParent .yellow {
+	background: #211e1a;
+	color: #f5d358;
+	box-shadow: inset 0px 0px 5px 1px #2c2418;
+}
+
+#calcButtonsParent .violet {
+	background: #1f1a2c;
+    color: #b677e7;
+	box-shadow: inset 0px 0px 5px 1px #673ab7;
+}
+
+#calcButtonsParent .number {
+	background: #1b1b1b;
+    color: #afafaf;
+	box-shadow: inset 0px 0px 5px 1px #262626;
+}
+
+#calcButtonsParent .clear {
+	background: #f1b815;
+    color: #fff;
+	box-shadow: none;
+}
+
+
+#calcButtonsParent .equalsBtn {
+	grid-row-end: 7;
+    grid-row-start: 5;
+    height: auto;
+    grid-column-start: 4;
+    -webkit-border-radius: 16px;
+            border-radius: 16px;
+    
+    color: #FFF;
+    background: #7611d3;
+    -webkit-box-shadow: none;
+            box-shadow: none;
+    grid-area: B;
+}
+
+
+.input {
+	grid-area: A;
+	height: 50px;
+	text-align: end;
+	border: 0;
+	background: initial;
+	color: #8e8e8e;
+	font-family: 'Lato';
+	font-size: 40px;
+	/*padding-top: 42px;*/
+	font-weight: bold;
+	background: #ffffff08;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+.input:active, .input:focus {
+	border: 0;
+	outline: none;
+}
+
+
+#answerField {
+	grid-area: P;
+	height: 24px;
+    line-height: 24px;
+	text-align: end;
+	color: #8e8e8e;
+	font-family: 'Lato';
+	background: #ffffff08;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+
+span {
+	width: 2px;
+	background: #ccc;
+	height: 130px;
+	margin: 80px;
+}
+
+.calc, .about {
+	width: 45%;
+}
+
+.about {
+	color: #bbb;
+}
+
+.about .data {
+	font-size: 20px;
+	color: #dedede;
+} 
+
+@media only screen and (max-width: 800px)  {
+
+	body {
+		-webkit-flex-direction: column;
+		    -ms-flex-direction: column;
+		        flex-direction: column;
+	}
+
+	span {
+		height: 3px;
+		width: 30%;
+	}
+
+	.calc, .about {
+		width: 90vw;
+	}
+
+	#calcButtonsParent {
+		max-width: 100%;
+		max-height: none;
+		margin-left: auto;
+		margin-right: auto;
+	}
+
+	#calcButtonsParent .calcBtn {
+		font-size: 16px;
+		width: calc(90vw / 4 - 10px * 3);
+		height: calc(90vw / 4 - 10px * 3);
+		line-height: calc(90vw / 4 - 10px * 3 + 0.1vw);
+	}
+
+	#calcButtonsParent .equalsBtn {
+		height: auto;
+	}	
+
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>	
+    <html lang="ru" prefix="og: http://ogp.me/ns#">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1.0">
+        <meta property="og:title" content="Reality - пройти тест" />
+        <meta property="og:type" content="website" />
+        <meta property="og:url" content="https://moonsites.github.io/index.html" />
+        <meta property="og:image" content="https://moonsites.github.io/res/3.gif" />
+        <meta property="og:description" content="Полное погружение в Реальность" />
+
+        <title>Reality</title>
+        <link rel="shortcut icon" href="title.ico">
+        <link rel="stylesheet" href="styles/switch.css">
+        <link rel="stylesheet" href="styles/style.css">
+        <link rel="stylesheet" href="styles/circle.css">
+        <link rel="stylesheet" href="styles/button.css">
+        <script type="text/javascript" src="js/script.js"></script>
+        <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="js/test.js"></script>           
+    </head>
+    <body>
+        <header>
+            <div class="head" id="head">
+                <div class="rotate-shadows"></div>
+                <span>
+                    <h1>Реальность</h1>
+                    <p>невероятнее вымысла</p>
+                </span>
+                <div class="onoffswitch">
+                    <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch" checked>
+                    <label class="onoffswitch-label" for="myonoffswitch" onclick="change()">
+                    </label>
+                </div>
+            </div> 
+        </header>
+        <div class="body" id="oneTitle">
+            <div class="img"></div>
+            <div class="text">
+                <div class="textmain">
+                    <p>«Реальность от вымысла</p>
+                    <p style="align-self: flex-end;">нетрудно отличить...»</p>
+                    <p>Или трудно?</p>
+                    <button href="#" class="flat" onclick="to('#threeTitle')">Пройти тест</button>
+                </div>
+                <div class="about" id="twoTitle">
+                    <div class="img" id="two"></div>
+                    <div class="textAbout">
+                        <h1 >Что такое реальность?</h1>
+                        <p>Реальность (от лат. realis — вещественный, действительный) — философский термин, употребляющийся в разных значениях как существующее вообще; объективно явленный мир; фрагмент универсума, составляющий предметную область соответствующей науки; объективно существующие явления, факты, то есть существующие действительно. Различают объективную (материальную) реальность и субъективную (явления сознания) реальность.</p>
+                    </div>
+                </div>
+                <div class="test" id="threeTitle">
+                    <div class="img" id="three"></div>
+
+                    <h1>Тест</h1>
+                    <p>Определите, существует ли данное слово, или это фантазия компьтера...</p>
+                
+                        <div id="testWord">...|</div>
+                        <button class="flat2 true" onclick="setAnswer(true)">Существует!</button>
+                        <button class="flat2 false" onclick="setAnswer(false)">Вымысел!</button>
+
+                        <div class="lineTest">
+                            <div class="left"><p id="left" style="color:#010101;">0</p></div>
+                            <div class="right"><p id="right" style="color:#fafafa;">0</p></></div>
+                        </div>
+                </div>
+                <div class="authors">
+                    <div class="fourtext">
+                        <h1 id="fourTitle">Авторы</h1>
+                        <p class="authorName">Данил Козицкий</p>
+                        <p class="small">&#60 code &#62</sub></p>
+                        <div class="links">
+                            <a href="https://instagram.com/moondayj" target="_blank"><img src="res/inst.png" alt="Instagram"></a>
+                            <a href="https://vk.com/danto_4" target="_blank"><img src="res/vk.png" alt="Vk"></a>
+                        </div>
+
+                        <p class="authorName bottom">Ян Братущик </p>
+                        <p class="small">pallete</p>
+                         <div class="links">
+                            <a href="https://instagram.com/yanchik.graf" target="_blank"><img src="res/inst.png" alt="Instagram"></a>
+                            <a href="https://vk.com/yanchik.graf" target="_blank"><img src="res/vk.png" alt="Vk"></a>
+                        </div>
+                    </div>
+                    <img src="res/picAbout.png" alt="authors" class="imgAuthors">
+                </div>
+            </div>
+        </div>
+        <footer>
+            <p>Copyright 2019</p>
+        </footer>
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-138714164-1"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+
+          gtag('config', 'UA-138714164-1');
+        </script>
+    </body>
+</html>
