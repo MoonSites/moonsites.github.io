@@ -1,0 +1,678 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Interior Prompt Generator</title>
+    <style>
+        :root {
+            --bg: #f5f5f3;
+            --card: #ffffff;
+            --text: #1f2933;
+            --muted: #6b7280;
+            --border: #d8d8d8;
+            --accent: #111827;
+            --accent-hover: #374151;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: Inter, Arial, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.45;
+        }
+
+        .page {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 32px 20px;
+        }
+
+        h1 {
+            margin: 0 0 8px;
+            font-size: 28px;
+        }
+
+        .subtitle {
+            margin: 0 0 28px;
+            color: var(--muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: 420px 1fr;
+            gap: 24px;
+            align-items: start;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 20px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+        }
+
+        .section {
+            margin-bottom: 22px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .section:last-child {
+            border-bottom: 0;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .section-title {
+            margin: 0 0 12px;
+            font-size: 16px;
+            font-weight: 700;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 7px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        select,
+        textarea,
+        input[type="text"] {
+            width: 100%;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 12px;
+            font: inherit;
+            background: #fff;
+            color: var(--text);
+            outline: none;
+        }
+
+        select:focus,
+        textarea:focus,
+        input[type="text"]:focus {
+            border-color: #9ca3af;
+        }
+
+        textarea {
+            min-height: 230px;
+            resize: vertical;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+
+        .field {
+            margin-bottom: 14px;
+        }
+
+        .checkbox-list {
+            display: grid;
+            gap: 8px;
+        }
+
+        .checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 14px;
+            font-weight: 400;
+            margin: 0;
+            cursor: pointer;
+        }
+
+        .checkbox input {
+            margin-top: 3px;
+        }
+
+        .actions {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 12px;
+        }
+
+        button {
+            border: 0;
+            border-radius: 10px;
+            padding: 10px 14px;
+            background: var(--accent);
+            color: #fff;
+            font: inherit;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: var(--accent-hover);
+        }
+
+        button.secondary {
+            background: #e5e7eb;
+            color: #111827;
+        }
+
+        button.secondary:hover {
+            background: #d1d5db;
+        }
+
+        .outputs {
+            display: grid;
+            gap: 18px;
+        }
+
+        .hint {
+            margin-top: 8px;
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        .inline-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+        }
+
+        @media (max-width: 900px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+
+            .inline-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+<main class="page">
+    <h1>Генератор промптов для интерьерной фотосессии</h1>
+    <p class="subtitle">
+        Для Nano Banana / image editing. Исходник: фото дивана на белом фоне. Диван сохраняется без изменений.
+    </p>
+
+    <div class="grid">
+        <form class="card" id="promptForm">
+            <div class="section">
+                <h2 class="section-title">Основные параметры</h2>
+
+                <div class="field">
+                    <label for="style">Стиль интерьера</label>
+                    <select id="style">
+                        <option value="classic">Классика</option>
+                        <option value="modern">Современный</option>
+                        <option value="minimalism">Минимализм</option>
+                        <option value="scandinavian">Скандинавский</option>
+                        <option value="japandi">Japandi</option>
+                        <option value="loft">Loft</option>
+                        <option value="midCentury">Mid-century</option>
+                        <option value="luxury">Luxury</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="room">Комната</label>
+                    <select id="room">
+                        <option value="livingRoom">Гостиная</option>
+                        <option value="lounge">Лаунж-зона</option>
+                        <option value="office">Кабинет</option>
+                        <option value="studio">Студия</option>
+                        <option value="showroom">Шоурум</option>
+                        <option value="apartment">Апартаменты</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="background">Фон / стены</label>
+                    <select id="background">
+                        <option value="lightWall">Светлая стена</option>
+                        <option value="lightWallMoldings">Светлая стена с молдингами</option>
+                        <option value="panoramicWindows">Панорамные окна</option>
+                        <option value="woodPanels">Деревянные панели</option>
+                        <option value="stoneWall">Каменная акцентная стена</option>
+                        <option value="concreteWall">Бетонная стена</option>
+                        <option value="galleryWall">Стена с картинами</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="light">Освещение</label>
+                    <select id="light">
+                        <option value="naturalDaylight">Дневной естественный свет</option>
+                        <option value="softStudio">Мягкий студийный свет</option>
+                        <option value="warmEvening">Тёплый вечерний свет</option>
+                        <option value="sunRays">Солнечные лучи из окна</option>
+                        <option value="brightCatalog">Яркий каталожный свет</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="mood">Атмосфера</label>
+                    <select id="mood">
+                        <option value="ecommerceLifestyle">E-commerce lifestyle</option>
+                        <option value="catalog">Премиальная каталожная фотосессия</option>
+                        <option value="cozyHome">Уютный жилой интерьер</option>
+                        <option value="architecturalMagazine">Архитектурный журнал</option>
+                        <option value="premiumHotel">Премиальный отельный интерьер</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Кадр и композиция</h2>
+
+                <div class="inline-grid">
+                    <div class="field">
+                        <label for="aspectRatio">Формат</label>
+                        <select id="aspectRatio">
+                            <option value="1:1">1:1</option>
+                            <option value="4:5">4:5</option>
+                            <option value="3:2">3:2</option>
+                            <option value="16:9">16:9</option>
+                            <option value="9:16">9:16</option>
+                        </select>
+                    </div>
+
+                    <div class="field">
+                        <label for="composition">Композиция</label>
+                        <select id="composition">
+                            <option value="centered">Диван по центру</option>
+                            <option value="slightlyOffCenter">Слегка смещён от центра</option>
+                            <option value="wideInterior">Шире показать интерьер</option>
+                            <option value="productFocused">Фокус на продукте</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="perspective">Ракурс</label>
+                    <select id="perspective">
+                        <option value="realisticPerspective">Реалистичная перспектива</option>
+                        <option value="keepOriginalAngle">Сохранить исходный ракурс дивана</option>
+                        <option value="frontThreeQuarter">Фронтальный 3/4 ракурс</option>
+                        <option value="straightFront">Прямой фронтальный вид</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Предметы вокруг дивана</h2>
+
+                <div class="checkbox-list">
+                    <label class="checkbox">
+                        <input type="checkbox" name="decor" value="rug" checked />
+                        Ковёр
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" name="decor" value="coffeeTable" checked />
+                        Журнальный столик рядом
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" name="decor" value="floorLamp" checked />
+                        Торшер
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" name="decor" value="artwork" checked />
+                        Картины / постеры на стене
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" name="decor" value="curtains" />
+                        Шторы
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" name="decor" value="plants" />
+                        Растения
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" name="decor" value="sideTables" />
+                        Приставные столики
+                    </label>
+                </div>
+
+                <p class="hint">
+                    Предметы добавляются только вокруг дивана. На диван ничего не кладётся.
+                </p>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Жёсткие ограничения</h2>
+
+                <div class="checkbox-list">
+                    <label class="checkbox">
+                        <input type="checkbox" name="restrictions" value="noColorChange" checked />
+                        Не менять цвет ткани
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" name="restrictions" value="noPillows" checked />
+                        Не добавлять подушки
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" name="restrictions" value="noLegChange" checked />
+                        Не менять ножки
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" name="restrictions" value="noArmrestChange" checked />
+                        Не менять форму подлокотников
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" name="restrictions" value="noPeopleAnimals" checked />
+                        Не добавлять людей и животных
+                    </label>
+                    <label class="checkbox">
+                        <input type="checkbox" name="restrictions" value="noObjectsOnSofa" checked />
+                        Не добавлять предметы на диван
+                    </label>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title">Дополнительные пожелания</h2>
+
+                <div class="field">
+                    <label for="customPrompt">Добавить в prompt</label>
+                    <input
+                            type="text"
+                            id="customPrompt"
+                            placeholder="Например: marble floor, beige curtains, premium neutral palette"
+                    />
+                </div>
+
+                <div class="field">
+                    <label for="customNegative">Добавить в negative prompt</label>
+                    <input
+                            type="text"
+                            id="customNegative"
+                            placeholder="Например: no dark walls, no excessive decor"
+                    />
+                </div>
+            </div>
+
+            <div class="actions">
+                <button type="button" id="resetBtn" class="secondary">Сбросить</button>
+            </div>
+        </form>
+
+        <section class="outputs">
+            <div class="card">
+                <h2 class="section-title">Prompt</h2>
+                <textarea id="promptOutput" readonly></textarea>
+                <div class="actions">
+                    <button type="button" data-copy="promptOutput">Скопировать prompt</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <h2 class="section-title">Negative prompt</h2>
+                <textarea id="negativeOutput" readonly></textarea>
+                <div class="actions">
+                    <button type="button" data-copy="negativeOutput">Скопировать negative</button>
+                </div>
+            </div>
+            <button type="button" data-copy="copyAll">Скопировать Всё</button>
+        </section>
+    </div>
+</main>
+
+<script>
+    const dictionaries = {
+        style: {
+            classic: "classic elegant interior, timeless design, refined details",
+            modern: "modern interior, clean lines, contemporary furniture and materials",
+            minimalism: "minimalist interior, clean composition, uncluttered space, neutral palette",
+            scandinavian: "Scandinavian interior, light wood, soft neutral tones, cozy clean styling",
+            japandi: "Japandi interior, calm minimalism, natural textures, warm neutral palette",
+            loft: "loft interior, textured materials, high ceiling, industrial refined atmosphere",
+            midCentury: "mid-century modern interior, warm wood, elegant vintage-inspired details",
+            luxury: "luxury high-end interior, premium materials, elegant upscale atmosphere"
+        },
+
+        room: {
+            livingRoom: "living room",
+            lounge: "lounge area",
+            office: "home office lounge area",
+            studio: "studio apartment interior",
+            showroom: "furniture showroom interior",
+            apartment: "premium apartment living area"
+        },
+
+        background: {
+            lightWall: "light neutral wall, clean bright background",
+            lightWallMoldings: "light neutral wall with subtle classic moldings",
+            panoramicWindows: "large panoramic windows in the background",
+            woodPanels: "elegant wood wall panels",
+            stoneWall: "refined natural stone accent wall",
+            concreteWall: "soft light concrete wall texture",
+            galleryWall: "tasteful gallery wall with framed artwork"
+        },
+
+        light: {
+            naturalDaylight: "natural daylight, soft realistic shadows",
+            softStudio: "soft studio lighting, balanced exposure, gentle shadows",
+            warmEvening: "warm evening light, cozy soft shadows",
+            sunRays: "natural sunlight coming through the window, subtle sun rays",
+            brightCatalog: "bright catalog lighting, clean highlights, balanced exposure"
+        },
+
+        mood: {
+            ecommerceLifestyle: "premium e-commerce lifestyle product photography",
+            catalog: "high-end catalog product photoshoot",
+            cozyHome: "cozy realistic home interior atmosphere",
+            architecturalMagazine: "architectural magazine style interior photography",
+            premiumHotel: "premium hotel lounge atmosphere, polished and refined"
+        },
+
+        perspective: {
+            realisticPerspective: "place the sofa with realistic perspective in the room",
+            keepOriginalAngle: "preserve the original viewing angle of the sofa as much as possible",
+            frontThreeQuarter: "front three-quarter product photography angle",
+            straightFront: "straight frontal product view"
+        },
+
+        composition: {
+            centered: "the sofa should be centered and clearly visible",
+            slightlyOffCenter: "the sofa should be slightly off-center with balanced composition",
+            wideInterior: "show more of the surrounding interior while keeping the sofa as the main subject",
+            productFocused: "product-focused composition, sofa is the dominant subject"
+        },
+
+        decor: {
+            rug: "a tasteful rug under or in front of the sofa",
+            coffeeTable: "a small elegant coffee table nearby",
+            floorLamp: "a refined floor lamp near the sofa",
+            artwork: "framed artwork on the wall",
+            curtains: "soft elegant curtains",
+            plants: "one or two indoor plants placed away from the sofa",
+            sideTables: "small side tables near the sofa"
+        },
+
+        restrictions: {
+            noColorChange: "Do not alter the sofa color or fabric tone.",
+            noPillows: "Do not add pillows, cushions, blankets, or throws.",
+            noLegChange: "Do not change the sofa legs.",
+            noArmrestChange: "Do not change the shape of the armrests.",
+            noPeopleAnimals: "No people and no animals.",
+            noObjectsOnSofa: "Do not place any objects on the sofa."
+        }
+    };
+
+    const defaultState = {
+        style: "classic",
+        room: "livingRoom",
+        background: "lightWall",
+        light: "naturalDaylight",
+        mood: "ecommerceLifestyle",
+        aspectRatio: "1:1",
+        composition: "centered",
+        perspective: "realisticPerspective",
+        decor: ["rug", "coffeeTable", "floorLamp", "artwork"],
+        restrictions: [
+            "noColorChange",
+            "noPillows",
+            "noLegChange",
+            "noArmrestChange",
+            "noPeopleAnimals",
+            "noObjectsOnSofa"
+        ]
+    };
+
+    const form = document.getElementById("promptForm");
+    const promptOutput = document.getElementById("promptOutput");
+    const negativeOutput = document.getElementById("negativeOutput");
+
+    function getSelectedCheckboxValues(name) {
+        return Array.from(document.querySelectorAll(`input[name="${name}"]:checked`))
+            .map((input) => input.value);
+    }
+
+    function getValue(id) {
+        return document.getElementById(id).value;
+    }
+
+    function buildPrompt() {
+        const style = dictionaries.style[getValue("style")];
+        const room = dictionaries.room[getValue("room")];
+        const background = dictionaries.background[getValue("background")];
+        const light = dictionaries.light[getValue("light")];
+        const mood = dictionaries.mood[getValue("mood")];
+        const perspective = dictionaries.perspective[getValue("perspective")];
+        const composition = dictionaries.composition[getValue("composition")];
+        const aspectRatio = getValue("aspectRatio");
+
+        const decorValues = getSelectedCheckboxValues("decor");
+        const decorParts = decorValues.map((key) => dictionaries.decor[key]);
+        const customPrompt = document.getElementById("customPrompt").value.trim();
+
+        const decorText = decorParts.length
+            ? `Add surrounding decor only around the sofa: ${decorParts.join(", ")}.`
+            : "Keep the surrounding interior clean and minimal, without extra decor.";
+
+        const extraText = customPrompt ? `Additional instruction: ${customPrompt}.` : "";
+
+        return [
+            "Use the uploaded image as the source product photo.",
+            "Place the exact same sofa from the reference image into a realistic interior scene.",
+            "",
+            "The sofa must remain completely unchanged: preserve its original shape, proportions, fabric color, texture, stitching, legs, armrests, backrest, seat cushions, and all visible design details.",
+            "Do not add, remove, replace, or modify any part of the sofa.",
+            "",
+            `Create a ${style} ${room}.`,
+            `Interior background: ${background}.`,
+            `${decorText}`,
+            "Nothing should be placed on the sofa.",
+            "",
+            `${light}.`,
+            `${mood}, photorealistic materials, professional interior photoshoot, sharp details, realistic shadows, clean composition, balanced exposure.`,
+            `${perspective}.`,
+            `${composition}.`,
+            `Aspect ratio: ${aspectRatio}.`,
+            extraText
+        ]
+            .filter(Boolean)
+            .join("\n");
+    }
+
+    function buildNegativePrompt() {
+        const restrictionValues = getSelectedCheckboxValues("restrictions");
+        const restrictions = restrictionValues.map((key) => dictionaries.restrictions[key]);
+
+        const customNegative = document.getElementById("customNegative").value.trim();
+
+        const baseNegative = [
+            "Do not change the sofa.",
+            "Do not alter the sofa shape, size, proportions, upholstery, fabric texture, stitching, seams, backrest, seat cushions, armrests, legs, or visible details.",
+            "No deformation, no extra sofa parts, no missing sofa parts, no changed upholstery, no changed pattern, no unrealistic perspective.",
+            "No objects on the sofa.",
+            "No clutter, no low resolution, no blur, no watermark, no text, no cartoon style, no CGI look, no over-stylization."
+        ];
+
+        if (customNegative) {
+            baseNegative.push(customNegative);
+        }
+
+        return [...restrictions, ...baseNegative]
+            .filter(Boolean)
+            .join("\n");
+    }
+
+    function updateOutputs() {
+        promptOutput.value = buildPrompt();
+        negativeOutput.value = buildNegativePrompt();
+    }
+
+    function resetForm() {
+        Object.entries(defaultState).forEach(([key, value]) => {
+            if (Array.isArray(value)) return;
+
+            const field = document.getElementById(key);
+            if (field) field.value = value;
+        });
+
+        document.querySelectorAll('input[name="decor"]').forEach((input) => {
+            input.checked = defaultState.decor.includes(input.value);
+        });
+
+        document.querySelectorAll('input[name="restrictions"]').forEach((input) => {
+            input.checked = defaultState.restrictions.includes(input.value);
+        });
+
+        document.getElementById("customPrompt").value = "";
+        document.getElementById("customNegative").value = "";
+
+        updateOutputs();
+    }
+
+    async function copyToClipboard(text) {
+        await navigator.clipboard.writeText(text);
+    }
+
+    async function copyTextArea(id) {
+        const textarea = document.getElementById(id);
+        return copyToClipboard(textarea.value)
+    }
+
+
+    form.addEventListener("input", updateOutputs);
+    form.addEventListener("change", updateOutputs);
+
+    document.getElementById("resetBtn").addEventListener("click", resetForm);
+
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+        button.addEventListener("click", async () => {
+            const id = button.dataset.copy;
+            const originalText = button.textContent;
+
+            try {
+                if (id === 'copyAll') {
+                    const positivePrompt = document.getElementById('promptOutput').value
+                    const negativePrompt = document.getElementById('negativeOutput').value
+
+                    const copyPrompt = [positivePrompt, negativePrompt].join('\n\n')
+
+                    await copyToClipboard(copyPrompt);
+                } else {
+                    await copyTextArea(id);
+                }
+
+
+                button.textContent = "Скопировано";
+                setTimeout(() => {
+                    button.textContent = originalText;
+                }, 1200);
+            } catch {
+                alert("Не удалось скопировать. Скопируйте текст вручную.");
+            }
+        });
+    });
+
+    updateOutputs();
+</script>
+</body>
+</html>
