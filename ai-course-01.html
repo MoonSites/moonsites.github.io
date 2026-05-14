@@ -1,0 +1,2483 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Как говорить с ИИ — Мини-курс</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Manrope:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<!--<style>-->
+<!--  :root {-->
+<!--    &#45;&#45;bg: #0d0d0f;-->
+<!--    &#45;&#45;surface: #16161a;-->
+<!--    &#45;&#45;surface2: #1e1e24;-->
+<!--    &#45;&#45;border: #2a2a35;-->
+<!--    &#45;&#45;accent: #f5c842;-->
+<!--    &#45;&#45;accent2: #e8734a;-->
+<!--    &#45;&#45;accent3: #5b8dee;-->
+<!--    &#45;&#45;text: #e8e8f0;-->
+<!--    &#45;&#45;muted: #7a7a90;-->
+<!--    &#45;&#45;good: #4caf80;-->
+<!--    &#45;&#45;bad: #e05555;-->
+<!--    &#45;&#45;radius: 16px;-->
+<!--  }-->
+
+<!--  * { box-sizing: border-box; margin: 0; padding: 0; }-->
+
+<!--  body {-->
+<!--    background: var(&#45;&#45;bg);-->
+<!--    color: var(&#45;&#45;text);-->
+<!--    font-family: 'Manrope', sans-serif;-->
+<!--    font-size: 16px;-->
+<!--    line-height: 1.7;-->
+<!--    min-height: 100vh;-->
+<!--  }-->
+
+<!--  /* ── HERO ── */-->
+<!--  .hero {-->
+<!--    position: relative;-->
+<!--    overflow: hidden;-->
+<!--    padding: 80px 24px 90px;-->
+<!--    text-align: center;-->
+<!--    background: radial-gradient(ellipse 80% 60% at 50% -10%, #2a1f05 0%, transparent 70%),-->
+<!--                radial-gradient(ellipse 50% 40% at 80% 60%, #1a0e1e 0%, transparent 60%),-->
+<!--                var(&#45;&#45;bg);-->
+<!--  }-->
+
+<!--  .hero::before {-->
+<!--    content: '';-->
+<!--    position: absolute;-->
+<!--    inset: 0;-->
+<!--    background-image:-->
+<!--      radial-gradient(circle, rgba(245,200,66,0.06) 1px, transparent 1px);-->
+<!--    background-size: 40px 40px;-->
+<!--    pointer-events: none;-->
+<!--  }-->
+
+<!--  .hero-badge {-->
+<!--    display: inline-flex;-->
+<!--    align-items: center;-->
+<!--    gap: 8px;-->
+<!--    background: rgba(245,200,66,0.1);-->
+<!--    border: 1px solid rgba(245,200,66,0.25);-->
+<!--    color: var(&#45;&#45;accent);-->
+<!--    font-size: 12px;-->
+<!--    font-weight: 700;-->
+<!--    letter-spacing: .12em;-->
+<!--    text-transform: uppercase;-->
+<!--    padding: 6px 16px;-->
+<!--    border-radius: 100px;-->
+<!--    margin-bottom: 28px;-->
+<!--  }-->
+
+<!--  .hero-badge::before { content: '✦'; }-->
+
+<!--  .hero h1 {-->
+<!--    font-family: 'Playfair Display', serif;-->
+<!--    font-size: clamp(2.6rem, 7vw, 5.2rem);-->
+<!--    font-weight: 900;-->
+<!--    line-height: 1.08;-->
+<!--    max-width: 760px;-->
+<!--    margin: 0 auto 24px;-->
+<!--  }-->
+
+<!--  .hero h1 em {-->
+<!--    font-style: italic;-->
+<!--    color: var(&#45;&#45;accent);-->
+<!--    position: relative;-->
+<!--  }-->
+
+<!--  .hero-sub {-->
+<!--    font-size: 18px;-->
+<!--    color: var(&#45;&#45;muted);-->
+<!--    max-width: 520px;-->
+<!--    margin: 0 auto 44px;-->
+<!--    font-weight: 400;-->
+<!--  }-->
+
+<!--  .lesson-dots {-->
+<!--    display: flex;-->
+<!--    justify-content: center;-->
+<!--    gap: 12px;-->
+<!--    flex-wrap: wrap;-->
+<!--  }-->
+
+<!--  .dot-item {-->
+<!--    display: flex;-->
+<!--    align-items: center;-->
+<!--    gap: 8px;-->
+<!--    font-size: 13px;-->
+<!--    color: var(&#45;&#45;muted);-->
+<!--    font-weight: 500;-->
+<!--  }-->
+
+<!--  .dot-item span {-->
+<!--    width: 28px; height: 28px;-->
+<!--    background: var(&#45;&#45;surface);-->
+<!--    border: 1px solid var(&#45;&#45;border);-->
+<!--    border-radius: 50%;-->
+<!--    display: grid;-->
+<!--    place-items: center;-->
+<!--    font-size: 11px;-->
+<!--    color: var(&#45;&#45;accent);-->
+<!--    font-weight: 700;-->
+<!--  }-->
+
+<!--  /* ── NAV ── */-->
+<!--  .nav {-->
+<!--    position: sticky;-->
+<!--    top: 0;-->
+<!--    z-index: 100;-->
+<!--    background: rgba(13,13,15,0.92);-->
+<!--    backdrop-filter: blur(16px);-->
+<!--    border-bottom: 1px solid var(&#45;&#45;border);-->
+<!--    padding: 0 24px;-->
+<!--  }-->
+
+<!--  .nav-inner {-->
+<!--    max-width: 860px;-->
+<!--    margin: 0 auto;-->
+<!--    display: flex;-->
+<!--    gap: 2px;-->
+<!--    overflow-x: auto;-->
+<!--    scrollbar-width: none;-->
+<!--  }-->
+
+<!--  .nav-inner::-webkit-scrollbar { display: none; }-->
+
+<!--  .nav-btn {-->
+<!--    background: none;-->
+<!--    border: none;-->
+<!--    color: var(&#45;&#45;muted);-->
+<!--    font-family: 'Manrope', sans-serif;-->
+<!--    font-size: 13px;-->
+<!--    font-weight: 600;-->
+<!--    padding: 16px 18px;-->
+<!--    cursor: pointer;-->
+<!--    white-space: nowrap;-->
+<!--    border-bottom: 2px solid transparent;-->
+<!--    transition: all .2s;-->
+<!--  }-->
+
+<!--  .nav-btn:hover { color: var(&#45;&#45;text); }-->
+<!--  .nav-btn.active {-->
+<!--    color: var(&#45;&#45;accent);-->
+<!--    border-bottom-color: var(&#45;&#45;accent);-->
+<!--  }-->
+
+<!--  /* ── LESSONS ── */-->
+<!--  .lessons {-->
+<!--    max-width: 860px;-->
+<!--    margin: 0 auto;-->
+<!--    padding: 56px 24px 80px;-->
+<!--  }-->
+
+<!--  .lesson { display: none; animation: fadeIn .35s ease; }-->
+<!--  .lesson.active { display: block; }-->
+
+<!--  @keyframes fadeIn {-->
+<!--    from { opacity: 0; transform: translateY(12px); }-->
+<!--    to   { opacity: 1; transform: translateY(0); }-->
+<!--  }-->
+
+<!--  /* lesson header */-->
+<!--  .lesson-header {-->
+<!--    display: flex;-->
+<!--    align-items: flex-start;-->
+<!--    gap: 20px;-->
+<!--    margin-bottom: 40px;-->
+<!--  }-->
+
+<!--  .lesson-number {-->
+<!--    flex-shrink: 0;-->
+<!--    width: 56px; height: 56px;-->
+<!--    background: linear-gradient(135deg, var(&#45;&#45;accent) 0%, var(&#45;&#45;accent2) 100%);-->
+<!--    border-radius: 14px;-->
+<!--    display: grid;-->
+<!--    place-items: center;-->
+<!--    font-family: 'Playfair Display', serif;-->
+<!--    font-size: 22px;-->
+<!--    font-weight: 900;-->
+<!--    color: #0d0d0f;-->
+<!--  }-->
+
+<!--  .lesson-meta { flex: 1; }-->
+
+<!--  .lesson-tag {-->
+<!--    font-size: 11px;-->
+<!--    font-weight: 700;-->
+<!--    letter-spacing: .1em;-->
+<!--    text-transform: uppercase;-->
+<!--    color: var(&#45;&#45;accent2);-->
+<!--    margin-bottom: 6px;-->
+<!--  }-->
+
+<!--  .lesson-title {-->
+<!--    font-family: 'Playfair Display', serif;-->
+<!--    font-size: clamp(1.6rem, 4vw, 2.4rem);-->
+<!--    font-weight: 700;-->
+<!--    line-height: 1.2;-->
+<!--    color: var(&#45;&#45;text);-->
+<!--  }-->
+
+<!--  /* content blocks */-->
+<!--  .block {-->
+<!--    background: var(&#45;&#45;surface);-->
+<!--    border: 1px solid var(&#45;&#45;border);-->
+<!--    border-radius: var(&#45;&#45;radius);-->
+<!--    padding: 28px 32px;-->
+<!--    margin-bottom: 24px;-->
+<!--  }-->
+
+<!--  .block-title {-->
+<!--    font-size: 13px;-->
+<!--    font-weight: 700;-->
+<!--    letter-spacing: .08em;-->
+<!--    text-transform: uppercase;-->
+<!--    color: var(&#45;&#45;muted);-->
+<!--    margin-bottom: 16px;-->
+<!--    display: flex;-->
+<!--    align-items: center;-->
+<!--    gap: 8px;-->
+<!--  }-->
+
+<!--  .block-title::before {-->
+<!--    content: '';-->
+<!--    width: 3px; height: 14px;-->
+<!--    background: var(&#45;&#45;accent);-->
+<!--    border-radius: 2px;-->
+<!--  }-->
+
+<!--  .block p { color: #c8c8d8; margin-bottom: 12px; }-->
+<!--  .block p:last-child { margin-bottom: 0; }-->
+
+<!--  /* analogy card */-->
+<!--  .analogy {-->
+<!--    background: linear-gradient(135deg, rgba(245,200,66,0.06) 0%, rgba(232,115,74,0.04) 100%);-->
+<!--    border: 1px solid rgba(245,200,66,0.2);-->
+<!--    border-radius: var(&#45;&#45;radius);-->
+<!--    padding: 24px 28px;-->
+<!--    margin-bottom: 24px;-->
+<!--    display: flex;-->
+<!--    gap: 16px;-->
+<!--  }-->
+
+<!--  .analogy-icon {-->
+<!--    font-size: 28px;-->
+<!--    flex-shrink: 0;-->
+<!--    line-height: 1;-->
+<!--  }-->
+
+<!--  .analogy-text { font-size: 15px; color: #d0c8a8; }-->
+<!--  .analogy-text strong { color: var(&#45;&#45;accent); }-->
+
+<!--  /* compare grid */-->
+<!--  .compare {-->
+<!--    display: grid;-->
+<!--    grid-template-columns: 1fr 1fr;-->
+<!--    gap: 16px;-->
+<!--    margin-bottom: 24px;-->
+<!--  }-->
+
+<!--  @media (max-width: 580px) { .compare { grid-template-columns: 1fr; } }-->
+
+<!--  .compare-card {-->
+<!--    border-radius: var(&#45;&#45;radius);-->
+<!--    padding: 20px 22px;-->
+<!--    border: 1px solid;-->
+<!--  }-->
+
+<!--  .compare-card.bad {-->
+<!--    background: rgba(224,85,85,0.06);-->
+<!--    border-color: rgba(224,85,85,0.22);-->
+<!--  }-->
+
+<!--  .compare-card.good {-->
+<!--    background: rgba(76,175,128,0.06);-->
+<!--    border-color: rgba(76,175,128,0.22);-->
+<!--  }-->
+
+<!--  .compare-label {-->
+<!--    font-size: 11px;-->
+<!--    font-weight: 700;-->
+<!--    letter-spacing: .1em;-->
+<!--    text-transform: uppercase;-->
+<!--    margin-bottom: 12px;-->
+<!--    display: flex;-->
+<!--    align-items: center;-->
+<!--    gap: 6px;-->
+<!--  }-->
+
+<!--  .compare-card.bad .compare-label { color: var(&#45;&#45;bad); }-->
+<!--  .compare-card.good .compare-label { color: var(&#45;&#45;good); }-->
+
+<!--  .compare-prompt {-->
+<!--    font-family: 'Courier New', monospace;-->
+<!--    font-size: 13px;-->
+<!--    line-height: 1.6;-->
+<!--    color: var(&#45;&#45;text);-->
+<!--    white-space: pre-wrap;-->
+<!--    word-break: break-word;-->
+<!--  }-->
+
+<!--  .compare-why {-->
+<!--    margin-top: 10px;-->
+<!--    font-size: 12px;-->
+<!--    color: var(&#45;&#45;muted);-->
+<!--    font-style: italic;-->
+<!--  }-->
+
+<!--  /* formula */-->
+<!--  .formula {-->
+<!--    background: var(&#45;&#45;surface2);-->
+<!--    border: 1px solid var(&#45;&#45;border);-->
+<!--    border-radius: var(&#45;&#45;radius);-->
+<!--    padding: 24px 28px;-->
+<!--    margin-bottom: 24px;-->
+<!--  }-->
+
+<!--  .formula-row {-->
+<!--    display: flex;-->
+<!--    align-items: center;-->
+<!--    gap: 10px;-->
+<!--    flex-wrap: wrap;-->
+<!--    margin-bottom: 16px;-->
+<!--  }-->
+
+<!--  .formula-piece {-->
+<!--    background: var(&#45;&#45;bg);-->
+<!--    border: 1px solid var(&#45;&#45;border);-->
+<!--    border-radius: 8px;-->
+<!--    padding: 8px 14px;-->
+<!--    font-size: 13px;-->
+<!--    font-weight: 600;-->
+<!--    color: var(&#45;&#45;accent);-->
+<!--    display: flex;-->
+<!--    align-items: center;-->
+<!--    gap: 6px;-->
+<!--  }-->
+
+<!--  .formula-piece .emoji { font-size: 14px; }-->
+
+<!--  .plus {-->
+<!--    color: var(&#45;&#45;muted);-->
+<!--    font-size: 18px;-->
+<!--    font-weight: 300;-->
+<!--  }-->
+
+<!--  .formula-desc {-->
+<!--    display: grid;-->
+<!--    gap: 8px;-->
+<!--  }-->
+
+<!--  .formula-item {-->
+<!--    display: flex;-->
+<!--    align-items: flex-start;-->
+<!--    gap: 10px;-->
+<!--    font-size: 14px;-->
+<!--  }-->
+
+<!--  .formula-item .key {-->
+<!--    background: rgba(245,200,66,0.12);-->
+<!--    color: var(&#45;&#45;accent);-->
+<!--    font-weight: 700;-->
+<!--    font-size: 12px;-->
+<!--    padding: 2px 8px;-->
+<!--    border-radius: 4px;-->
+<!--    flex-shrink: 0;-->
+<!--    margin-top: 1px;-->
+<!--  }-->
+
+<!--  .formula-item .val { color: #b8b8cc; }-->
+
+<!--  /* tip cards */-->
+<!--  .tips-grid {-->
+<!--    display: grid;-->
+<!--    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));-->
+<!--    gap: 16px;-->
+<!--    margin-bottom: 24px;-->
+<!--  }-->
+
+<!--  .tip-card {-->
+<!--    background: var(&#45;&#45;surface);-->
+<!--    border: 1px solid var(&#45;&#45;border);-->
+<!--    border-radius: var(&#45;&#45;radius);-->
+<!--    padding: 22px;-->
+<!--    transition: border-color .2s, transform .2s;-->
+<!--  }-->
+
+<!--  .tip-card:hover {-->
+<!--    border-color: rgba(245,200,66,0.3);-->
+<!--    transform: translateY(-2px);-->
+<!--  }-->
+
+<!--  .tip-icon {-->
+<!--    font-size: 26px;-->
+<!--    margin-bottom: 12px;-->
+<!--  }-->
+
+<!--  .tip-title {-->
+<!--    font-weight: 700;-->
+<!--    font-size: 14px;-->
+<!--    color: var(&#45;&#45;text);-->
+<!--    margin-bottom: 6px;-->
+<!--  }-->
+
+<!--  .tip-text {-->
+<!--    font-size: 13px;-->
+<!--    color: var(&#45;&#45;muted);-->
+<!--    line-height: 1.55;-->
+<!--  }-->
+
+<!--  /* numbered list */-->
+<!--  .steps { display: grid; gap: 14px; margin-bottom: 24px; }-->
+
+<!--  .step {-->
+<!--    display: flex;-->
+<!--    gap: 16px;-->
+<!--    align-items: flex-start;-->
+<!--  }-->
+
+<!--  .step-num {-->
+<!--    width: 32px; height: 32px;-->
+<!--    border-radius: 50%;-->
+<!--    background: var(&#45;&#45;surface2);-->
+<!--    border: 1px solid var(&#45;&#45;border);-->
+<!--    display: grid;-->
+<!--    place-items: center;-->
+<!--    font-size: 13px;-->
+<!--    font-weight: 700;-->
+<!--    color: var(&#45;&#45;accent);-->
+<!--    flex-shrink: 0;-->
+<!--    margin-top: 2px;-->
+<!--  }-->
+
+<!--  .step-content {}-->
+<!--  .step-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }-->
+<!--  .step-desc { font-size: 13px; color: var(&#45;&#45;muted); }-->
+
+<!--  /* prompt builder (lesson 2) */-->
+<!--  .builder {-->
+<!--    background: var(&#45;&#45;surface);-->
+<!--    border: 1px solid var(&#45;&#45;border);-->
+<!--    border-radius: var(&#45;&#45;radius);-->
+<!--    overflow: hidden;-->
+<!--    margin-bottom: 24px;-->
+<!--  }-->
+
+<!--  .builder-header {-->
+<!--    background: var(&#45;&#45;surface2);-->
+<!--    border-bottom: 1px solid var(&#45;&#45;border);-->
+<!--    padding: 16px 24px;-->
+<!--    font-size: 13px;-->
+<!--    font-weight: 700;-->
+<!--    letter-spacing: .06em;-->
+<!--    text-transform: uppercase;-->
+<!--    color: var(&#45;&#45;muted);-->
+<!--    display: flex;-->
+<!--    align-items: center;-->
+<!--    gap: 8px;-->
+<!--  }-->
+
+<!--  .builder-header::before { content: '⚡'; }-->
+
+<!--  .builder-body { padding: 24px; }-->
+
+<!--  .field { margin-bottom: 18px; }-->
+
+<!--  .field label {-->
+<!--    display: block;-->
+<!--    font-size: 12px;-->
+<!--    font-weight: 700;-->
+<!--    letter-spacing: .08em;-->
+<!--    text-transform: uppercase;-->
+<!--    color: var(&#45;&#45;accent);-->
+<!--    margin-bottom: 8px;-->
+<!--  }-->
+
+<!--  .field input, .field textarea, .field select {-->
+<!--    width: 100%;-->
+<!--    background: var(&#45;&#45;bg);-->
+<!--    border: 1px solid var(&#45;&#45;border);-->
+<!--    border-radius: 10px;-->
+<!--    color: var(&#45;&#45;text);-->
+<!--    font-family: 'Manrope', sans-serif;-->
+<!--    font-size: 14px;-->
+<!--    padding: 12px 16px;-->
+<!--    outline: none;-->
+<!--    transition: border-color .2s;-->
+<!--    resize: vertical;-->
+<!--  }-->
+
+<!--  .field input:focus, .field textarea:focus, .field select:focus {-->
+<!--    border-color: rgba(245,200,66,0.4);-->
+<!--  }-->
+
+<!--  .field select option { background: var(&#45;&#45;surface2); }-->
+
+<!--  .build-btn {-->
+<!--    background: linear-gradient(135deg, var(&#45;&#45;accent) 0%, var(&#45;&#45;accent2) 100%);-->
+<!--    border: none;-->
+<!--    border-radius: 10px;-->
+<!--    color: #0d0d0f;-->
+<!--    font-family: 'Manrope', sans-serif;-->
+<!--    font-size: 14px;-->
+<!--    font-weight: 700;-->
+<!--    padding: 13px 28px;-->
+<!--    cursor: pointer;-->
+<!--    transition: opacity .2s, transform .15s;-->
+<!--  }-->
+
+<!--  .build-btn:hover { opacity: .88; transform: translateY(-1px); }-->
+
+<!--  .built-prompt {-->
+<!--    display: none;-->
+<!--    margin-top: 20px;-->
+<!--    background: var(&#45;&#45;bg);-->
+<!--    border: 1px solid rgba(245,200,66,0.25);-->
+<!--    border-radius: 10px;-->
+<!--    padding: 18px 20px;-->
+<!--  }-->
+
+<!--  .built-prompt.show { display: block; animation: fadeIn .25s ease; }-->
+
+<!--  .built-prompt-label {-->
+<!--    font-size: 11px;-->
+<!--    font-weight: 700;-->
+<!--    letter-spacing: .1em;-->
+<!--    text-transform: uppercase;-->
+<!--    color: var(&#45;&#45;good);-->
+<!--    margin-bottom: 10px;-->
+<!--  }-->
+
+<!--  .built-prompt-text {-->
+<!--    font-family: 'Courier New', monospace;-->
+<!--    font-size: 13px;-->
+<!--    line-height: 1.7;-->
+<!--    color: #d8d8ee;-->
+<!--    white-space: pre-wrap;-->
+<!--  }-->
+
+<!--  .copy-btn {-->
+<!--    margin-top: 12px;-->
+<!--    background: rgba(245,200,66,0.1);-->
+<!--    border: 1px solid rgba(245,200,66,0.2);-->
+<!--    border-radius: 8px;-->
+<!--    color: var(&#45;&#45;accent);-->
+<!--    font-family: 'Manrope', sans-serif;-->
+<!--    font-size: 12px;-->
+<!--    font-weight: 600;-->
+<!--    padding: 7px 16px;-->
+<!--    cursor: pointer;-->
+<!--    transition: background .15s;-->
+<!--  }-->
+
+<!--  .copy-btn:hover { background: rgba(245,200,66,0.2); }-->
+
+<!--  /* quiz */-->
+<!--  .quiz {-->
+<!--    background: var(&#45;&#45;surface);-->
+<!--    border: 1px solid var(&#45;&#45;border);-->
+<!--    border-radius: var(&#45;&#45;radius);-->
+<!--    overflow: hidden;-->
+<!--    margin-bottom: 24px;-->
+<!--  }-->
+
+<!--  .quiz-header {-->
+<!--    background: linear-gradient(135deg, rgba(91,141,238,0.12) 0%, rgba(245,200,66,0.06) 100%);-->
+<!--    border-bottom: 1px solid var(&#45;&#45;border);-->
+<!--    padding: 20px 24px;-->
+<!--  }-->
+
+<!--  .quiz-num {-->
+<!--    font-size: 11px;-->
+<!--    font-weight: 700;-->
+<!--    letter-spacing: .1em;-->
+<!--    text-transform: uppercase;-->
+<!--    color: var(&#45;&#45;accent3);-->
+<!--    margin-bottom: 8px;-->
+<!--  }-->
+
+<!--  .quiz-q {-->
+<!--    font-size: 16px;-->
+<!--    font-weight: 600;-->
+<!--    color: var(&#45;&#45;text);-->
+<!--    line-height: 1.4;-->
+<!--  }-->
+
+<!--  .quiz-body { padding: 20px 24px; }-->
+
+<!--  .quiz-options { display: grid; gap: 10px; }-->
+
+<!--  .quiz-option {-->
+<!--    background: var(&#45;&#45;bg);-->
+<!--    border: 1.5px solid var(&#45;&#45;border);-->
+<!--    border-radius: 10px;-->
+<!--    padding: 13px 18px;-->
+<!--    cursor: pointer;-->
+<!--    font-size: 14px;-->
+<!--    color: var(&#45;&#45;text);-->
+<!--    transition: border-color .15s, background .15s;-->
+<!--    display: flex;-->
+<!--    gap: 10px;-->
+<!--    align-items: flex-start;-->
+<!--  }-->
+
+<!--  .quiz-option:hover:not(.locked) {-->
+<!--    border-color: rgba(91,141,238,0.4);-->
+<!--    background: rgba(91,141,238,0.04);-->
+<!--  }-->
+
+<!--  .quiz-option.correct {-->
+<!--    border-color: var(&#45;&#45;good);-->
+<!--    background: rgba(76,175,128,0.08);-->
+<!--    color: var(&#45;&#45;text);-->
+<!--  }-->
+
+<!--  .quiz-option.wrong {-->
+<!--    border-color: var(&#45;&#45;bad);-->
+<!--    background: rgba(224,85,85,0.08);-->
+<!--    color: var(&#45;&#45;muted);-->
+<!--  }-->
+
+<!--  .quiz-letter {-->
+<!--    width: 22px; height: 22px;-->
+<!--    border-radius: 50%;-->
+<!--    background: var(&#45;&#45;surface2);-->
+<!--    border: 1px solid var(&#45;&#45;border);-->
+<!--    display: grid;-->
+<!--    place-items: center;-->
+<!--    font-size: 11px;-->
+<!--    font-weight: 700;-->
+<!--    flex-shrink: 0;-->
+<!--  }-->
+
+<!--  .quiz-feedback {-->
+<!--    display: none;-->
+<!--    margin-top: 14px;-->
+<!--    padding: 12px 16px;-->
+<!--    border-radius: 10px;-->
+<!--    font-size: 13px;-->
+<!--    font-weight: 500;-->
+<!--    line-height: 1.5;-->
+<!--  }-->
+
+<!--  .quiz-feedback.show { display: block; }-->
+<!--  .quiz-feedback.ok { background: rgba(76,175,128,0.1); color: #7dd4a8; border: 1px solid rgba(76,175,128,0.25); }-->
+<!--  .quiz-feedback.no { background: rgba(224,85,85,0.1); color: #e88; border: 1px solid rgba(224,85,85,0.25); }-->
+
+<!--  /* cheatsheet */-->
+<!--  .cheat {-->
+<!--    background: linear-gradient(135deg, rgba(245,200,66,0.04) 0%, rgba(91,141,238,0.04) 100%);-->
+<!--    border: 1px solid rgba(245,200,66,0.18);-->
+<!--    border-radius: var(&#45;&#45;radius);-->
+<!--    padding: 28px 32px;-->
+<!--    margin-bottom: 24px;-->
+<!--  }-->
+
+<!--  .cheat-title {-->
+<!--    font-family: 'Playfair Display', serif;-->
+<!--    font-size: 18px;-->
+<!--    font-weight: 700;-->
+<!--    color: var(&#45;&#45;accent);-->
+<!--    margin-bottom: 20px;-->
+<!--    display: flex;-->
+<!--    align-items: center;-->
+<!--    gap: 10px;-->
+<!--  }-->
+
+<!--  .cheat-grid {-->
+<!--    display: grid;-->
+<!--    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));-->
+<!--    gap: 12px;-->
+<!--  }-->
+
+<!--  .cheat-item {-->
+<!--    background: rgba(0,0,0,0.25);-->
+<!--    border-radius: 10px;-->
+<!--    padding: 14px 16px;-->
+<!--    border: 1px solid rgba(255,255,255,0.05);-->
+<!--  }-->
+
+<!--  .cheat-item .ci-label {-->
+<!--    font-size: 11px;-->
+<!--    font-weight: 700;-->
+<!--    text-transform: uppercase;-->
+<!--    letter-spacing: .08em;-->
+<!--    color: var(&#45;&#45;accent);-->
+<!--    margin-bottom: 4px;-->
+<!--  }-->
+
+<!--  .cheat-item .ci-val {-->
+<!--    font-size: 13px;-->
+<!--    color: #c8c8d8;-->
+<!--  }-->
+
+<!--  /* progress bar */-->
+<!--  .progress-wrap {-->
+<!--    position: fixed;-->
+<!--    bottom: 24px;-->
+<!--    right: 24px;-->
+<!--    display: flex;-->
+<!--    gap: 8px;-->
+<!--    z-index: 200;-->
+<!--  }-->
+
+<!--  .prog-dot {-->
+<!--    width: 10px; height: 10px;-->
+<!--    border-radius: 50%;-->
+<!--    background: var(&#45;&#45;border);-->
+<!--    transition: background .3s, transform .2s;-->
+<!--    cursor: pointer;-->
+<!--  }-->
+
+<!--  .prog-dot.done { background: var(&#45;&#45;accent); transform: scale(1.2); }-->
+
+<!--  /* nav buttons */-->
+<!--  .lesson-nav {-->
+<!--    display: flex;-->
+<!--    justify-content: space-between;-->
+<!--    align-items: center;-->
+<!--    gap: 16px;-->
+<!--    margin-top: 40px;-->
+<!--    padding-top: 32px;-->
+<!--    border-top: 1px solid var(&#45;&#45;border);-->
+<!--  }-->
+
+<!--  .ln-btn {-->
+<!--    display: flex;-->
+<!--    align-items: center;-->
+<!--    gap: 8px;-->
+<!--    background: var(&#45;&#45;surface);-->
+<!--    border: 1px solid var(&#45;&#45;border);-->
+<!--    border-radius: 10px;-->
+<!--    color: var(&#45;&#45;text);-->
+<!--    font-family: 'Manrope', sans-serif;-->
+<!--    font-size: 14px;-->
+<!--    font-weight: 600;-->
+<!--    padding: 12px 20px;-->
+<!--    cursor: pointer;-->
+<!--    transition: border-color .2s, background .2s;-->
+<!--  }-->
+
+<!--  .ln-btn:hover { border-color: rgba(245,200,66,0.3); background: var(&#45;&#45;surface2); }-->
+<!--  .ln-btn:disabled { opacity: .3; cursor: not-allowed; }-->
+
+<!--  .ln-btn.primary {-->
+<!--    background: linear-gradient(135deg, var(&#45;&#45;accent) 0%, var(&#45;&#45;accent2) 100%);-->
+<!--    border: none;-->
+<!--    color: #0d0d0f;-->
+<!--  }-->
+
+<!--  .ln-btn.primary:hover { opacity: .88; }-->
+
+<!--  /* finish screen */-->
+<!--  .finish-screen {-->
+<!--    display: none;-->
+<!--    text-align: center;-->
+<!--    padding: 60px 0;-->
+<!--  }-->
+
+<!--  .finish-screen.show { display: block; animation: fadeIn .4s ease; }-->
+
+<!--  .finish-trophy {-->
+<!--    font-size: 72px;-->
+<!--    margin-bottom: 24px;-->
+<!--    animation: bounce 1s ease infinite alternate;-->
+<!--  }-->
+
+<!--  @keyframes bounce {-->
+<!--    from { transform: translateY(0); }-->
+<!--    to   { transform: translateY(-10px); }-->
+<!--  }-->
+
+<!--  .finish-title {-->
+<!--    font-family: 'Playfair Display', serif;-->
+<!--    font-size: clamp(1.8rem, 5vw, 3rem);-->
+<!--    font-weight: 900;-->
+<!--    margin-bottom: 16px;-->
+<!--  }-->
+
+<!--  .finish-sub {-->
+<!--    font-size: 16px;-->
+<!--    color: var(&#45;&#45;muted);-->
+<!--    max-width: 440px;-->
+<!--    margin: 0 auto 36px;-->
+<!--  }-->
+
+<!--  .finish-cards {-->
+<!--    display: grid;-->
+<!--    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));-->
+<!--    gap: 14px;-->
+<!--    max-width: 600px;-->
+<!--    margin: 0 auto;-->
+<!--    text-align: left;-->
+<!--  }-->
+
+<!--  .finish-card {-->
+<!--    background: var(&#45;&#45;surface);-->
+<!--    border: 1px solid var(&#45;&#45;border);-->
+<!--    border-radius: 12px;-->
+<!--    padding: 16px 18px;-->
+<!--    font-size: 13px;-->
+<!--    color: #b8b8cc;-->
+<!--    line-height: 1.5;-->
+<!--  }-->
+
+<!--  .finish-card strong { color: var(&#45;&#45;accent); display: block; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }-->
+
+<!--  @media (max-width: 480px) {-->
+<!--    .block { padding: 20px 18px; }-->
+<!--    .lesson-header { gap: 14px; }-->
+<!--    .lesson-number { width: 44px; height: 44px; font-size: 18px; }-->
+<!--  }-->
+<!--</style>-->
+  <style>
+    :root {
+      --bg: #f5f5f8;
+      --surface: #ffffff;
+      --surface2: #eeeef4;
+      --border: #d8d8e6;
+      --accent: #d4a800;
+      --accent2: #e8734a;
+      --accent3: #3a6fd8;
+      --text: #1a1a24;
+      --muted: #393947;
+      --good: #2e8a5f;
+      --bad: #c93d3d;
+      --radius: 16px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Manrope', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 80px 24px 90px;
+      text-align: center;
+      background: radial-gradient(ellipse 80% 60% at 50% -10%, rgba(212,168,0,0.14) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 40% at 80% 60%, rgba(58,111,216,0.08) 0%, transparent 60%),
+      var(--bg);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+              radial-gradient(circle, rgba(212,168,0,0.15) 1px, transparent 1px);
+      background-size: 40px 40px;
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(212,168,0,0.1);
+      border: 1px solid rgba(212,168,0,0.3);
+      color: var(--accent);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      padding: 6px 16px;
+      border-radius: 100px;
+      margin-bottom: 28px;
+    }
+
+    .hero-badge::before { content: '✦'; }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.6rem, 7vw, 5.2rem);
+      font-weight: 900;
+      line-height: 1.08;
+      max-width: 760px;
+      margin: 0 auto 24px;
+    }
+
+    .hero h1 em {
+      font-style: italic;
+      color: var(--accent);
+      position: relative;
+    }
+
+    .hero-sub {
+      font-size: 18px;
+      color: var(--muted);
+      max-width: 520px;
+      margin: 0 auto 44px;
+      font-weight: 400;
+    }
+
+    .lesson-dots {
+      display: flex;
+      justify-content: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .dot-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .dot-item span {
+      width: 28px; height: 28px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    /* ── NAV ── */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(245,245,248,0.92);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      padding: 0 24px;
+    }
+
+    .nav-inner {
+      max-width: 860px;
+      margin: 0 auto;
+      display: flex;
+      gap: 2px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+
+    .nav-inner::-webkit-scrollbar { display: none; }
+
+    .nav-btn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-family: 'Manrope', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      padding: 16px 18px;
+      cursor: pointer;
+      white-space: nowrap;
+      border-bottom: 2px solid transparent;
+      transition: all .2s;
+    }
+
+    .nav-btn:hover { color: var(--text); }
+    .nav-btn.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    /* ── LESSONS ── */
+    .lessons {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 56px 24px 80px;
+    }
+
+    .lesson { display: none; animation: fadeIn .35s ease; }
+    .lesson.active { display: block; }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(12px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* lesson header */
+    .lesson-header {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .lesson-number {
+      flex-shrink: 0;
+      width: 56px; height: 56px;
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      font-weight: 900;
+      color: #ffffff;
+    }
+
+    .lesson-meta { flex: 1; }
+
+    .lesson-tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 6px;
+    }
+
+    .lesson-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.4rem);
+      font-weight: 700;
+      line-height: 1.2;
+      color: var(--text);
+    }
+
+    /* content blocks */
+    .block {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin-bottom: 24px;
+    }
+
+    .mb-big {
+      margin-bottom: 44px;
+    }
+
+    .mt-big {
+      margin-top: 44px;
+    }
+
+
+    .block-title {
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .block-title::before {
+      content: '';
+      width: 3px; height: 14px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    .block p { color: #4a4a62; margin-bottom: 12px; }
+    .block p:last-child { margin-bottom: 0; }
+
+    /* analogy card */
+    .analogy {
+      background: linear-gradient(135deg, rgba(212,168,0,0.07) 0%, rgba(232,115,74,0.05) 100%);
+      border: 1px solid rgba(212,168,0,0.22);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 24px;
+      display: flex;
+      gap: 16px;
+    }
+
+    .analogy-icon {
+      font-size: 28px;
+      flex-shrink: 0;
+      line-height: 1;
+    }
+
+    .analogy-text { font-size: 15px; color: #5a5040; }
+    .analogy-text strong { color: var(--accent); }
+
+    /* compare grid */
+    .compare {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 580px) { .compare { grid-template-columns: 1fr; } }
+
+    .compare-card {
+      border-radius: var(--radius);
+      padding: 20px 22px;
+      border: 1px solid;
+    }
+
+    .compare-card.bad {
+      background: rgba(201,61,61,0.05);
+      border-color: rgba(201,61,61,0.22);
+    }
+
+    .compare-card.good {
+      background: rgba(46,138,95,0.05);
+      border-color: rgba(46,138,95,0.22);
+    }
+
+    .compare-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .compare-card.bad .compare-label { color: var(--bad); }
+    .compare-card.good .compare-label { color: var(--good); }
+
+    .compare-prompt {
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      color: var(--text);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .compare-why {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* formula */
+    .formula {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px 28px;
+      margin-bottom: 24px;
+    }
+
+    .formula-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 16px;
+    }
+
+    .formula-piece {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .formula-piece .emoji { font-size: 14px; }
+
+    .plus {
+      color: var(--muted);
+      font-size: 18px;
+      font-weight: 300;
+    }
+
+    .formula-desc {
+      display: grid;
+      gap: 8px;
+    }
+
+    .formula-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+    }
+
+    .formula-item .key {
+      background: rgba(212,168,0,0.12);
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 12px;
+      padding: 2px 8px;
+      border-radius: 4px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+
+    .formula-item .val { color: #5a5a72; }
+
+    /* tip cards */
+    .tips-grid {
+      /*display: grid;*/
+      /*grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));*/
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .tip-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px;
+      transition: border-color .2s, transform .2s;
+    }
+
+    .tip-card:hover {
+      border-color: rgba(212,168,0,0.35);
+      transform: translateY(-2px);
+    }
+
+    .tip-icon {
+      font-size: 26px;
+      margin-bottom: 12px;
+    }
+
+    .tip-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .tip-text {
+      font-size: 13px;
+      color: var(--muted);
+      line-height: 1.55;
+    }
+
+    /* numbered list */
+    .steps { display: grid; gap: 14px; margin-bottom: 24px; }
+
+    .step {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 32px; height: 32px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .step-content {}
+    .step-title { font-weight: 700; font-size: 14px; margin-bottom: 4px; }
+    .step-desc { font-size: 13px; color: var(--muted); }
+
+    /* prompt builder (lesson 2) */
+    .builder {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .builder-header {
+      background: var(--surface2);
+      border-bottom: 1px solid var(--border);
+      padding: 16px 24px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .builder-header::before { content: '⚡'; }
+
+    .builder-body { padding: 24px; }
+
+    .field { margin-bottom: 18px; }
+
+    .field { margin-bottom: 18px; }
+
+    .field label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+
+    .field input, .field textarea, .field select {
+      width: 100%;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: 'Manrope', sans-serif;
+      font-size: 14px;
+      padding: 12px 16px;
+      outline: none;
+      transition: border-color .2s;
+      resize: vertical;
+    }
+
+    .field input:focus, .field textarea:focus, .field select:focus {
+      border-color: rgba(212,168,0,0.45);
+    }
+
+    .field select option { background: var(--surface2); }
+
+    .build-btn {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      border: none;
+      border-radius: 10px;
+      color: #ffffff;
+      font-family: 'Manrope', sans-serif;
+      font-size: 14px;
+      font-weight: 700;
+      padding: 13px 28px;
+      cursor: pointer;
+      transition: opacity .2s, transform .15s;
+    }
+
+    .build-btn:hover { opacity: .88; transform: translateY(-1px); }
+
+    .built-prompt {
+      display: none;
+      margin-top: 20px;
+      background: var(--bg);
+      border: 1px solid rgba(212,168,0,0.28);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+
+    .built-prompt.show { display: block; animation: fadeIn .25s ease; }
+
+    .built-prompt-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--good);
+      margin-bottom: 10px;
+    }
+
+    .built-prompt-text {
+      font-family: 'Courier New', monospace;
+      font-size: 13px;
+      line-height: 1.7;
+      color: #2a2a40;
+      white-space: pre-wrap;
+    }
+
+    .copy-btn {
+      margin-top: 12px;
+      background: rgba(212,168,0,0.1);
+      border: 1px solid rgba(212,168,0,0.22);
+      border-radius: 8px;
+      color: var(--accent);
+      font-family: 'Manrope', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      padding: 7px 16px;
+      cursor: pointer;
+      transition: background .15s;
+    }
+
+    .copy-btn:hover { background: rgba(212,168,0,0.2); }
+
+    /* quiz */
+    .quiz {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 24px;
+    }
+
+    .quiz-header {
+      background: linear-gradient(135deg, rgba(58,111,216,0.08) 0%, rgba(212,168,0,0.06) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 20px 24px;
+    }
+
+    .quiz-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent3);
+      margin-bottom: 8px;
+    }
+
+    .quiz-q {
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--text);
+      line-height: 1.4;
+    }
+
+    .quiz-body { padding: 20px 24px; }
+
+    .quiz-options { display: grid; gap: 10px; }
+
+    .quiz-option {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      padding: 13px 18px;
+      cursor: pointer;
+      font-size: 14px;
+      color: var(--text);
+      transition: border-color .15s, background .15s;
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    .quiz-option:hover:not(.locked) {
+      border-color: rgba(58,111,216,0.4);
+      background: rgba(58,111,216,0.05);
+    }
+
+    .quiz-option.correct {
+      border-color: var(--good);
+      background: rgba(46,138,95,0.07);
+      color: var(--text);
+    }
+
+    .quiz-option.wrong {
+      border-color: var(--bad);
+      background: rgba(201,61,61,0.07);
+      color: var(--muted);
+    }
+
+    .quiz-letter {
+      width: 22px; height: 22px;
+      border-radius: 50%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+      font-size: 11px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .quiz-feedback {
+      display: none;
+      margin-top: 14px;
+      padding: 12px 16px;
+      border-radius: 10px;
+      font-size: 13px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .quiz-feedback.show { display: block; }
+    .quiz-feedback.ok { background: rgba(46,138,95,0.09); color: #1e6b47; border: 1px solid rgba(46,138,95,0.25); }
+    .quiz-feedback.no { background: rgba(201,61,61,0.09); color: #9a2020; border: 1px solid rgba(201,61,61,0.25); }
+
+    /* cheatsheet */
+    .cheat {
+      background: linear-gradient(135deg, rgba(212,168,0,0.06) 0%, rgba(58,111,216,0.05) 100%);
+      border: 1px solid rgba(212,168,0,0.2);
+      border-radius: var(--radius);
+      padding: 28px 32px;
+      margin-bottom: 24px;
+    }
+
+    .cheat-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .cheat-grid {
+      display: flex;
+      flex-direction: column;
+      /*grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));*/
+      gap: 12px;
+    }
+
+    .cheat-item {
+      background: rgba(255,255,255,0.75);
+      border-radius: 10px;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+    }
+
+    .cheat-item .ci-label {
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .cheat-item .ci-val {
+      font-size: 13px;
+      color: #4a4a62;
+    }
+
+    /* progress bar */
+    .progress-wrap {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      display: flex;
+      gap: 8px;
+      z-index: 200;
+    }
+
+    .prog-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--border);
+      transition: background .3s, transform .2s;
+      cursor: pointer;
+    }
+
+    .prog-dot.done { background: var(--accent); transform: scale(1.2); }
+
+    /* nav buttons */
+    .lesson-nav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-top: 40px;
+      padding-top: 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    .ln-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      color: var(--text);
+      font-family: 'Manrope', sans-serif;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 20px;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+    }
+
+    .ln-btn:hover { border-color: rgba(212,168,0,0.35); background: var(--surface2); }
+    .ln-btn:disabled { opacity: .3; cursor: not-allowed; }
+
+    .ln-btn.primary {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      border: none;
+      color: #ffffff;
+    }
+
+    .ln-btn.primary:hover { opacity: .88; }
+
+    /* finish screen */
+    .finish-screen {
+      display: none;
+      text-align: center;
+      padding: 60px 0;
+    }
+
+    .finish-screen.show { display: block; animation: fadeIn .4s ease; }
+
+    .finish-trophy {
+      font-size: 72px;
+      margin-bottom: 24px;
+      animation: bounce 1s ease infinite alternate;
+    }
+
+    @keyframes bounce {
+      from { transform: translateY(0); }
+      to   { transform: translateY(-10px); }
+    }
+
+    .finish-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      font-weight: 900;
+      margin-bottom: 16px;
+    }
+
+    .finish-sub {
+      font-size: 16px;
+      color: var(--muted);
+      max-width: 440px;
+      margin: 0 auto 36px;
+    }
+
+    .finish-cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 14px;
+      max-width: 600px;
+      margin: 0 auto;
+      text-align: left;
+    }
+
+    .finish-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px 18px;
+      font-size: 13px;
+      color: #5a5a72;
+      line-height: 1.5;
+    }
+
+    .finish-card strong { color: var(--accent); display: block; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: .06em; }
+
+    @media (max-width: 480px) {
+      .block { padding: 20px 18px; }
+      .lesson-header { gap: 14px; }
+      .lesson-number { width: 44px; height: 44px; font-size: 18px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">Мини-курс · 6 уроков</div>
+  <h1>Как говорить с <em>ИИ</em>, чтобы получать отличные результаты</h1>
+  <p class="hero-sub">Практический курс для тех, кто только начинает. Никакого жаргона — только понятные объяснения и живые примеры.</p>
+  <div class="lesson-dots">
+    <div class="dot-item"><span>1</span> Что такое промпт</div>
+    <div class="dot-item"><span>2</span> Формула хорошего запроса</div>
+    <div class="dot-item"><span>3</span> Частые ошибки</div>
+    <div class="dot-item"><span>4</span> Практика и шпаргалка</div>
+    <div class="dot-item"><span>5</span> Лайфхаки ИИ</div>
+    <div class="dot-item"><span>6</span> Ограничения ИИ</div>
+  </div>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <div class="nav-inner">
+    <button class="nav-btn active" onclick="goTo(0)">Урок 1</button>
+    <button class="nav-btn" onclick="goTo(1)">Урок 2</button>
+    <button class="nav-btn" onclick="goTo(2)">Урок 3</button>
+    <button class="nav-btn" onclick="goTo(3)">Урок 4</button>
+    <button class="nav-btn" onclick="goTo(4)">⚡ Лайфхаки</button>
+    <button class="nav-btn" onclick="goTo(5)">⚠️ Ограничения</button>
+  </div>
+</nav>
+
+<!-- LESSONS -->
+<div class="lessons">
+
+  <!-- ══════════════════════ УРОК 1 ══════════════════════ -->
+  <div class="lesson active" id="lesson-0">
+    <div class="lesson-header">
+      <div class="lesson-number">1</div>
+      <div class="lesson-meta">
+        <div class="lesson-tag">Введение</div>
+        <div class="lesson-title">Что такое промпт и почему это важно</div>
+      </div>
+    </div>
+
+    <div class="analogy">
+      <div class="analogy-icon">🧑‍🍳</div>
+      <div class="analogy-text">
+        Представьте, что ИИ — это <strong>очень умный шеф-повар</strong>, который готов приготовить всё что угодно. Но если вы скажете «сделай что-нибудь вкусное» — он угадает наугад. А если скажете «приготовь нежную пасту карбонара без чеснока, средняя порция» — результат будет именно таким, как вы хотели.
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">Что такое промпт</div>
+      <p><strong>Промпт</strong> (от англ. prompt — «подсказка») — это просто <strong>ваш запрос к ИИ</strong>. То, что вы пишете в строку чата ChatGPT или Claude.</p>
+      <p>Промпт может быть одним словом, вопросом, инструкцией или целым описанием задачи. Чем точнее промпт — тем полезнее ответ.</p>
+    </div>
+
+    <div class="block">
+      <div class="block-title">Как думает ИИ</div>
+      <p>Современные ИИ-системы (ChatGPT, Claude) обучены на огромном количестве текстов. Они умеют <strong>понимать контекст</strong>, отвечать на вопросы, писать тексты, объяснять сложные вещи простым языком и многое другое.</p>
+      <p>Но у них нет телепатии. ИИ не знает: кто вы, зачем вам это нужно, какой формат вы ожидаете и насколько подробно отвечать. Всё это нужно <strong>сказать ему напрямую</strong>.</p>
+    </div>
+
+    <div class="block mt-big">
+      <div class="block-title">Посмотрите на разницу</div>
+    </div>
+
+    <div class="compare">
+      <div class="compare-card bad">
+        <div class="compare-label">✗ Слабый промпт</div>
+        <div class="compare-prompt">напиши про маркетинг</div>
+        <div class="compare-why">Слишком расплывчато. ИИ не знает: что именно, для кого, в каком формате, какой объём.
+        </div>
+      </div>
+      <div class="compare-card good">
+        <div class="compare-label">✓ Сильный промпт</div>
+        <div class="compare-prompt">Напиши 5 советов по контент-маркетингу для малого бизнеса. Аудитория — владельцы
+          кафе. Стиль — дружелюбный, без сложных терминов. Объём — 2–3 предложения на каждый совет.
+        </div>
+        <div class="compare-why">Чётко: тема, аудитория, стиль, объём. ИИ понимает задачу полностью.</div>
+      </div>
+    </div>
+
+    <div class="block mt-big">
+      <div class="block-title">Главный принцип</div>
+      <p>Думайте о ИИ как о <strong>новом сотруднике с энциклопедическими знаниями</strong>. Он умный, но не знает вашего контекста. Чем больше полезной информации вы дадите — тем точнее будет результат.</p>
+    </div>
+
+    <!-- QUIZ -->
+    <div class="quiz mt-big">
+      <div class="quiz-header">
+        <div class="quiz-num">Проверьте себя</div>
+        <div class="quiz-q">Какой из запросов к ИИ даст наиболее полезный результат?</div>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this, false, 'Слишком коротко и неопределённо. ИИ сгенерирует что-то общее.')">
+            <span class="quiz-letter">A</span> помоги с письмом
+          </div>
+          <div class="quiz-option" onclick="answer(this, false, 'Чуть лучше, но всё ещё нет контекста: кому, зачем, в каком тоне.')">
+            <span class="quiz-letter">B</span> напиши деловое письмо
+          </div>
+          <div class="quiz-option" onclick="answer(this, true, '✓ Правильно! Здесь есть цель, адресат, тон и контекст — ИИ понимает задачу полностью.')">
+            <span class="quiz-letter">C</span> Напиши короткое деловое письмо партнёру с просьбой перенести встречу с пятницы на понедельник. Тон — вежливый и краткий.
+          </div>
+          <div class="quiz-option" onclick="answer(this, false, 'Слишком длинное и бессвязное. Нет чёткой задачи.')">
+            <span class="quiz-letter">D</span> мне нужно написать что-то партнёру вообще-то у нас встреча но я не могу прийти
+          </div>
+        </div>
+        <div class="quiz-feedback" id="qfeed-0"></div>
+      </div>
+    </div>
+
+    <div class="lesson-nav">
+      <button class="ln-btn" disabled>← Назад</button>
+      <button class="ln-btn primary" onclick="goTo(1)">Урок 2: Формула →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ УРОК 2 ══════════════════════ -->
+  <div class="lesson" id="lesson-1">
+    <div class="lesson-header">
+      <div class="lesson-number">2</div>
+      <div class="lesson-meta">
+        <div class="lesson-tag">Техника</div>
+        <div class="lesson-title">Формула хорошего промпта</div>
+      </div>
+    </div>
+
+    <div class="analogy">
+      <div class="analogy-icon">🧩</div>
+      <div class="analogy-text">
+        Хороший промпт — как хорошее техзадание. У него есть <strong>роль, задача, контекст и формат</strong>. Не все четыре элемента нужны всегда — но чем их больше, тем точнее результат.
+      </div>
+    </div>
+
+    <div class="formula">
+      <div class="block-title" style="margin-bottom:18px">4 элемента сильного промпта</div>
+      <div class="formula-row">
+        <div class="formula-piece"><span class="emoji">🎭</span> Роль</div>
+        <span class="plus">+</span>
+        <div class="formula-piece"><span class="emoji">🎯</span> Задача</div>
+        <span class="plus">+</span>
+        <div class="formula-piece"><span class="emoji">📋</span> Контекст</div>
+        <span class="plus">+</span>
+        <div class="formula-piece"><span class="emoji">📐</span> Формат</div>
+      </div>
+      <div class="formula-desc">
+        <div class="formula-item">
+          <span class="key">Роль</span>
+          <span class="val">«Ты — опытный HR-менеджер», «Действуй как учитель математики», «Ты — редактор СМИ»</span>
+        </div>
+        <div class="formula-item">
+          <span class="key">Задача</span>
+          <span class="val">Что именно нужно сделать: написать, объяснить, перевести, проверить, придумать</span>
+        </div>
+        <div class="formula-item">
+          <span class="key">Контекст</span>
+          <span class="val">Для кого, зачем, какая ситуация, что уже известно</span>
+        </div>
+        <div class="formula-item">
+          <span class="key">Формат</span>
+          <span class="val">Объём, структура, стиль: «список из 5 пунктов», «2 абзаца», «формальный тон»</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="block mt-big">
+      <div class="block-title">Примеры по формуле</div>
+    </div>
+
+    <div class="compare">
+      <div class="compare-card bad">
+        <div class="compare-label">✗ Без формулы</div>
+        <div class="compare-prompt">объясни мне ML</div>
+        <div class="compare-why">Нет ни роли, ни контекста, ни формата. Ответ будет случайным.</div>
+      </div>
+      <div class="compare-card good">
+        <div class="compare-label">✓ По формуле</div>
+        <div class="compare-prompt">Объясни мне, что такое машинное обучение, как будто мне 12 лет. Используй простые аналогии из жизни. Ответ — 3–4 предложения.</div>
+        <div class="compare-why">Роль подразумевается, задача чётка, контекст (уровень аудитории) задан, формат указан.</div>
+      </div>
+    </div>
+
+    <div class="compare">
+      <div class="compare-card bad">
+        <div class="compare-label">✗ Слабый</div>
+        <div class="compare-prompt">напиши резюме</div>
+        <div class="compare-why">Чьё резюме? На какую должность? В каком стиле?</div>
+      </div>
+      <div class="compare-card good">
+        <div class="compare-label">✓ Сильный</div>
+        <div class="compare-prompt">Ты — профессиональный HR-специалист. Помоги мне переписать раздел «Опыт работы» в резюме. Я работал менеджером по продажам 3 года, достиг роста оборота на 40%. Стиль — деловой, динамичный. Формат — 3–4 буллита.</div>
+        <div class="compare-why">Все 4 элемента на месте.</div>
+      </div>
+    </div>
+
+    <!-- КОНСТРУКТОР -->
+    <div class="builder mt-big">
+      <div class="builder-header">Конструктор промпта — попробуйте сами</div>
+      <div class="builder-body">
+        <div class="field">
+          <label>🎭 Роль (необязательно)</label>
+          <input type="text" id="b-role" placeholder="Например: Ты — опытный маркетолог" />
+        </div>
+        <div class="field">
+          <label>🎯 Задача</label>
+          <input type="text" id="b-task" placeholder="Например: Напиши пост для Instagram" />
+        </div>
+        <div class="field">
+          <label>📋 Контекст</label>
+          <textarea id="b-context" rows="2" placeholder="Например: Продукт — натуральное мыло ручной работы, аудитория — женщины 25–40 лет"></textarea>
+        </div>
+        <div class="field">
+          <label>📐 Формат</label>
+          <input type="text" id="b-format" placeholder="Например: 3–4 предложения, живой и тёплый тон" />
+        </div>
+        <button class="build-btn" onclick="buildPrompt()">✦ Собрать промпт</button>
+        <div class="built-prompt" id="built-result">
+          <div class="built-prompt-label">✓ Ваш промпт готов</div>
+          <div class="built-prompt-text" id="built-text"></div>
+          <button class="copy-btn" onclick="copyPrompt()">📋 Скопировать</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-nav">
+      <button class="ln-btn" onclick="goTo(0)">← Урок 1</button>
+      <button class="ln-btn primary" onclick="goTo(2)">Урок 3: Ошибки →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ УРОК 3 ══════════════════════ -->
+  <div class="lesson" id="lesson-2">
+    <div class="lesson-header">
+      <div class="lesson-number">3</div>
+      <div class="lesson-meta">
+        <div class="lesson-tag">Ошибки</div>
+        <div class="lesson-title">Топ-7 ошибок новичков (и как их исправить)</div>
+      </div>
+    </div>
+
+    <div class="analogy">
+      <div class="analogy-icon">🔍</div>
+      <div class="analogy-text">
+        Большинство «плохих» ответов от ИИ — не вина ИИ. Это результат неточного запроса. Вот самые частые ошибки — проверьте, встречали ли вы их.
+      </div>
+    </div>
+
+    <div class="tips-grid">
+      <div class="tip-card">
+        <div class="tip-icon">🌫️</div>
+        <div class="tip-title">Расплывчатость</div>
+        <div class="tip-text">«Расскажи мне что-нибудь интересное» — ИИ не знает, что вас интересует. Будьте конкретны.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">📦</div>
+        <div class="tip-title">Нет контекста</div>
+        <div class="tip-text">Вы знаете свою ситуацию — ИИ нет. Добавьте детали: кто, что, зачем, для кого.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">📏</div>
+        <div class="tip-title">Нет формата</div>
+        <div class="tip-text">Не указали объём — получили эссе на 5 страниц (или 1 строчку). Всегда уточняйте объём.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🙅</div>
+        <div class="tip-title">Запрет вместо задачи</div>
+        <div class="tip-text">«Не пиши сложно» работает хуже чем «пиши простым языком». Говорите, что хотите, а не что запрещаете.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">💬</div>
+        <div class="tip-title">Всё в одном запросе</div>
+        <div class="tip-text">Не надо смешивать 5 задач в один запрос. Лучше задавать по одной, итерируя.</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🔄</div>
+        <div class="tip-title">Нет итераций</div>
+        <div class="tip-text">Первый ответ редко идеален. Уточняйте: «Сделай это короче», «Добавь примеры», «Измени тон».</div>
+      </div>
+      <div class="tip-card">
+        <div class="tip-icon">🎲</div>
+        <div class="tip-title">Слепое доверие</div>
+        <div class="tip-text">ИИ может ошибаться в фактах. Проверяйте важные данные, особенно цифры и имена.</div>
+      </div>
+    </div>
+
+    <div class="block mt-big">
+      <div class="block-title">Как итерировать правильно</div>
+      <p>После первого ответа вы можете продолжать диалог — ИИ помнит контекст беседы. Используйте уточнения:</p>
+    </div>
+
+    <div class="steps">
+      <div class="step">
+        <div class="step-num">1</div>
+        <div class="step-content">
+          <div class="step-title">Первый запрос — набросок</div>
+          <div class="step-desc">Получите базовый вариант, не пытайтесь сразу написать «идеальный» промпт.</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">2</div>
+        <div class="step-content">
+          <div class="step-title">Уточните, что не так</div>
+          <div class="step-desc">«Слишком длинно — сократи до 5 предложений» / «Тон слишком формальный, сделай дружелюбнее»</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">3</div>
+        <div class="step-content">
+          <div class="step-title">Попросите варианты</div>
+          <div class="step-desc">«Придумай ещё 3 варианта» / «Предложи альтернативный заголовок»</div>
+        </div>
+      </div>
+      <div class="step">
+        <div class="step-num">4</div>
+        <div class="step-content">
+          <div class="step-title">Комбинируйте лучшее</div>
+          <div class="step-desc">«Возьми структуру из варианта 1 и стиль из варианта 3»</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- QUIZ 2 -->
+    <div class="quiz mt-big">
+      <div class="quiz-header">
+        <div class="quiz-num">Проверьте себя</div>
+        <div class="quiz-q">ИИ дал слишком длинный и сложный ответ. Что лучше написать дальше?</div>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this, false, 'Это просто начнёт новый чат. Контекст предыдущего запроса потеряется.')">
+            <span class="quiz-letter">A</span> Начать новый чат и написать промпт заново
+          </div>
+          <div class="quiz-option" onclick="answer(this, true, '✓ Правильно! Уточнения в том же чате — самый эффективный способ улучшить результат.')">
+            <span class="quiz-letter">B</span> Написать: «Сократи до 3 предложений и объясни проще, без терминов»
+          </div>
+          <div class="quiz-option" onclick="answer(this, false, 'ИИ не понимает «нравится / не нравится» без конкретики.')">
+            <span class="quiz-letter">C</span> Написать: «Мне не нравится этот ответ»
+          </div>
+          <div class="quiz-option" onclick="answer(this, false, 'Если ответ можно улучшить уточнением — не стоит сдаваться.')">
+            <span class="quiz-letter">D</span> Принять ответ как есть
+          </div>
+        </div>
+        <div class="quiz-feedback" id="qfeed-2"></div>
+      </div>
+    </div>
+
+    <div class="lesson-nav">
+      <button class="ln-btn" onclick="goTo(1)">← Урок 2</button>
+      <button class="ln-btn primary" onclick="goTo(3)">Урок 4: Практика →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ УРОК 4 ══════════════════════ -->
+  <div class="lesson" id="lesson-3">
+    <div class="lesson-header">
+      <div class="lesson-number">4</div>
+      <div class="lesson-meta">
+        <div class="lesson-tag">Практика</div>
+        <div class="lesson-title">Готовые шаблоны и шпаргалка</div>
+      </div>
+    </div>
+
+    <div class="analogy">
+      <div class="analogy-icon">🚀</div>
+      <div class="analogy-text">
+        Лучший способ научиться — <strong>практиковаться каждый день</strong>. Вот готовые шаблоны под реальные задачи и финальная шпаргалка — сохраните её!
+      </div>
+    </div>
+
+    <div class="block">
+      <div class="block-title">Шаблоны на каждый день</div>
+    </div>
+
+    <div class="compare">
+      <div class="compare-card good" style="grid-column: 1 / -1">
+        <div class="compare-label" style="color: var(--accent3)">📧 Деловая переписка</div>
+        <div class="compare-prompt">Напиши [тип письма: отказ / просьба / благодарность] для [получатель]. Суть: [что случилось / что нужно]. Тон: [деловой / дружелюбный / строгий]. Длина: [1–2 абзаца / до 5 предложений].</div>
+      </div>
+    </div>
+
+    <div class="compare">
+      <div class="compare-card good" style="grid-column: 1 / -1">
+        <div class="compare-label" style="color: var(--accent3)">✍️ Написание текстов</div>
+        <div class="compare-prompt">Напиши [формат: пост / статью / описание] на тему [тема] для [аудитория]. Стиль: [живой / экспертный / простой]. Объём: [предложения / слова].</div>
+      </div>
+    </div>
+    <div class="compare">
+      <div class="compare-card good" style="grid-column: 1 / -1">
+        <div class="compare-label" style="color: var(--accent3)">🧠 Объяснение темы</div>
+        <div class="compare-prompt">Объясни [тема] простыми словами, как будто я [уровень: школьник / новичок / специалист другой сферы]. Приведи 1–2 примера из жизни.</div>
+      </div>
+    </div>
+
+    <div class="compare">
+      <div class="compare-card good" style="grid-column: 1 / -1">
+        <div class="compare-label" style="color: var(--accent3)">📋 Резюме / конспект</div>
+        <div class="compare-prompt">Составь краткое резюме следующего текста в виде [список пунктов / 3 предложения / таблица]. Выдели главную идею и 3 ключевых тезиса. [Вставьте текст]</div>
+      </div>
+    </div>
+    <div class="compare">
+      <div class="compare-card good" style="grid-column: 1 / -1">
+        <div class="compare-label" style="color: var(--accent3)">💡 Генерация идей</div>
+        <div class="compare-prompt">Придумай [число] идей для [задача]. Аудитория — [описание]. Критерии: [бюджетно / быстро / оригинально]. Формат — список с кратким описанием.</div>
+      </div>
+    </div>
+
+    <!-- ШПАРГАЛКА -->
+    <div class="cheat mt-big">
+      <div class="cheat-title">📌 Шпаргалка: золотые правила</div>
+      <div class="cheat-grid">
+        <div class="cheat-item">
+          <div class="ci-label">Будь конкретен</div>
+          <div class="ci-val">Чем точнее запрос — тем точнее ответ</div>
+        </div>
+        <div class="cheat-item">
+          <div class="ci-label">Давай контекст</div>
+          <div class="ci-val">Кто ты, для кого, зачем — ИИ не читает мысли</div>
+        </div>
+        <div class="cheat-item">
+          <div class="ci-label">Укажи формат</div>
+          <div class="ci-val">Список, абзац, таблица, объём</div>
+        </div>
+        <div class="cheat-item">
+          <div class="ci-label">Задай роль</div>
+          <div class="ci-val">«Действуй как...» — улучшает качество</div>
+        </div>
+        <div class="cheat-item">
+          <div class="ci-label">Итерируй</div>
+          <div class="ci-val">Первый ответ — черновик. Уточняй!</div>
+        </div>
+        <div class="cheat-item">
+          <div class="ci-label">Говори «что делать»</div>
+          <div class="ci-val">Не «не пиши сложно», а «пиши просто»</div>
+        </div>
+        <div class="cheat-item">
+          <div class="ci-label">Проверяй факты</div>
+          <div class="ci-val">ИИ может ошибаться. Перепроверяй важные данные</div>
+        </div>
+        <div class="cheat-item">
+          <div class="ci-label">Практикуйся</div>
+          <div class="ci-val">15 минут в день — и навык закрепится быстро</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ФИНАЛЬНЫЙ ТЕСТ -->
+    <div class="quiz mt-big">
+      <div class="quiz-header">
+        <div class="quiz-num">Финальный тест</div>
+        <div class="quiz-q">Вы хотите попросить ИИ помочь с подготовкой к собеседованию. Какой промпт лучший?</div>
+      </div>
+      <div class="quiz-body">
+        <div class="quiz-options">
+          <div class="quiz-option" onclick="answer(this, false, 'Нет никакого контекста. ИИ не знает, на какую позицию и что именно нужно.')">
+            <span class="quiz-letter">A</span> помоги подготовиться к собеседованию
+          </div>
+          <div class="quiz-option" onclick="answer(this, false, 'Немного лучше, но всё ещё нет деталей об опыте и формате ответа.')">
+            <span class="quiz-letter">B</span> расскажи про собеседование на менеджера
+          </div>
+          <div class="quiz-option" onclick="answer(this, true, '✓ Отлично! Роль задана, задача конкретна, контекст детальный, формат чёткий.')">
+            <span class="quiz-letter">C</span> Ты — опытный HR-менеджер. Помоги мне подготовиться к собеседованию на должность project manager в IT-компании. У меня 2 года опыта в смежной сфере. Составь список из 7 вероятных вопросов и дай совет, как отвечать на каждый.
+          </div>
+          <div class="quiz-option" onclick="answer(this, false, 'Тут смешаны несколько задач, нет контекста об опыте. Лучше начать с конкретики.')">
+            <span class="quiz-letter">D</span> напиши вопросы для собеседования и ответы и ещё расскажи как одеться и как себя вести
+          </div>
+        </div>
+        <div class="quiz-feedback" id="qfeed-3"></div>
+      </div>
+    </div>
+
+    <div class="lesson-nav">
+      <button class="ln-btn" onclick="goTo(2)">← Урок 3</button>
+      <button class="ln-btn primary" onclick="goTo(4)">Урок 5: Лайфхаки →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ УРОК 5 ══════════════════════ -->
+  <div class="lesson" id="lesson-4">
+    <div class="lesson-header">
+      <div class="lesson-number" style="background: linear-gradient(135deg,#5b8dee,#a855f7)">5</div>
+      <div class="lesson-meta">
+        <div class="lesson-tag" style="color:#5b8dee">Продвинутый уровень</div>
+        <div class="lesson-title">Ключевые лайфхаки при работе с ИИ</div>
+      </div>
+    </div>
+
+    <div class="analogy">
+      <div class="analogy-icon">🧠</div>
+      <div class="analogy-text">
+        Есть несколько простых приёмов, которые <strong>резко поднимают качество</strong> ответов ИИ. Они не требуют никаких технических знаний — просто добавьте их в свои запросы.
+      </div>
+    </div>
+
+    <!-- ЛАЙФХАК 1 -->
+    <div class="block" style="border-color: rgba(91,141,238,0.3);">
+      <div class="block-title" style="color:#5b8dee">⚡ Лайфхак 1 — Пусть ИИ задаёт вопросы</div>
+      <p>Добавьте в конец промпта фразу: <strong>«Задай мне несколько уточняющих вопросов, прежде чем начать»</strong>. Это помогает ИИ лучше понять вашу задачу и сократить количество итераций.</p>
+    </div>
+    <div class="compare">
+      <div class="compare-card bad">
+        <div class="compare-label">✗ Без лайфхака</div>
+        <div class="compare-prompt">Напиши мне стратегию продвижения в соцсетях.</div>
+        <div class="compare-why">ИИ выдаст что-то общее — не зная вашего бизнеса, бюджета, целей.</div>
+      </div>
+      <div class="compare-card good">
+        <div class="compare-label">✓ С лайфхаком</div>
+        <div class="compare-prompt">Помоги мне разработать стратегию продвижения в соцсетях. Прежде чем начать, задай мне 3–5 уточняющих вопросов о бизнесе и целях.</div>
+        <div class="compare-why">ИИ сначала выяснит контекст — и выдаст персонализированный результат.</div>
+      </div>
+    </div>
+
+    <!-- ЛАЙФХАК 2 -->
+    <div class="block mt-big" style="border-color: rgba(91,141,238,0.3);">
+      <div class="block-title" style="color:#5b8dee">⚡ Лайфхак 2 — Пошаговый план выполнения</div>
+      <p>Для сложных задач добавьте: <strong>«Сначала напиши пошаговый план выполнения задачи, затем выполни каждый шаг»</strong>. ИИ «думает вслух» и делает меньше ошибок.</p>
+    </div>
+    <div class="compare">
+      <div class="compare-card bad">
+        <div class="compare-label">✗ Без плана</div>
+        <div class="compare-prompt">Проанализируй плюсы и минусы открытия кофейни в небольшом городе.</div>
+        <div class="compare-why">Ответ может быть поверхностным или неструктурированным.</div>
+      </div>
+      <div class="compare-card good">
+        <div class="compare-label">✓ С пошаговым планом</div>
+        <div class="compare-prompt">Проанализируй плюсы и минусы открытия кофейни в небольшом городе. Сначала составь план анализа, затем разбери каждый пункт подробно.</div>
+        <div class="compare-why">Структурированный, глубокий и последовательный ответ.</div>
+      </div>
+    </div>
+
+    <!-- ЛАЙФХАК 3 -->
+    <div class="block mt-big" style="border-color: rgba(91,141,238,0.3);">
+      <div class="block-title" style="color:#5b8dee">⚡ Лайфхак 3 — Мастер-промпт и группировка по проектам</div>
+      <p>Для регулярных задач создайте <strong>мастер-промпт</strong> — универсальное описание вашего контекста, которое вы вставляете в начало каждого нового чата.</p>
+      <p>Пример мастер-промпта для работы:</p>
+    </div>
+    <div class="compare">
+      <div class="compare-card good" style="grid-column: 1 / -1">
+        <div class="compare-label" style="color:var(--accent3)">📋 Пример мастер-промпта</div>
+        <div class="compare-prompt">Контекст для всех задач: я — маркетолог в небольшой IT-компании (B2B, корпоративное ПО). Аудитория — HR-директора и финдиректора крупных компаний. Тон коммуникации — деловой, без лишних слов. Я буду давать тебе задачи — работай в этом контексте.</div>
+        <div class="compare-why">Один раз написали — вставляете в новый чат и сразу работаете без объяснений.</div>
+      </div>
+    </div>
+    <div class="block" style="border-color: rgba(91,141,238,0.3); margin-top: 0;">
+      <div class="block-title" style="color:#5b8dee">💡 Группировка по проектам</div>
+      <p>Создавайте <strong>отдельный чат для каждого проекта</strong>: «Проект А — сайт», «Проект Б — рассылка». Так контекст не перемешивается, а найти старые ответы намного проще.</p>
+    </div>
+
+    <!-- ЛАЙФХАК 4 -->
+    <div class="block mt-big" style="border-color: rgba(91,141,238,0.3);">
+      <div class="block-title" style="color:#5b8dee">⚡ Лайфхак 4 — 1 чат = 1 задача</div>
+      <p>Не накапливайте десятки задач в одном чате. Когда чат становится очень длинным, ИИ может <strong>терять контекст</strong> из самого начала диалога. Лучше открыть новый чат для новой задачи.</p>
+    </div>
+    <div class="tips-grid" style="grid-template-columns: 1fr 1fr; margin-bottom:24px;">
+      <div class="tip-card" style="border-color:rgba(224,85,85,0.25)">
+        <div class="tip-icon">❌</div>
+        <div class="tip-title">Не так</div>
+        <div class="tip-text">Один длинный чат: напишите письмо → придумайте название → сделайте анализ → переведите текст → составьте план...</div>
+      </div>
+      <div class="tip-card" style="border-color:rgba(76,175,128,0.25)">
+        <div class="tip-icon">✅</div>
+        <div class="tip-title">Так лучше</div>
+        <div class="tip-text">Отдельный чат на каждую задачу. Краткий мастер-промпт в начале — и сразу к делу.</div>
+      </div>
+    </div>
+
+    <!-- ЛАЙФХАК 5 — МЕТА-ПРОМПТ -->
+    <div class="block mt-big" style="border-color: rgba(245,200,66,0.3); background: rgba(245,200,66,0.03);">
+      <div class="block-title">⭐ Лайфхак 5 — Промпт для генерации промпта</div>
+      <p>Не знаете, как правильно сформулировать запрос? Попросите ИИ <strong>написать промпт за вас</strong>.</p>
+    </div>
+    <div class="compare">
+      <div class="compare-card good" style="grid-column: 1 / -1">
+        <div class="compare-label" style="color:var(--accent)">⭐ Мета-промпт (промпт для создания промпта)</div>
+        <div class="compare-prompt">Ты — опытный промпт-инженер. Я хочу [описание задачи своими словами]. Напиши для меня детальный промпт, который я смогу использовать для ChatGPT / Claude, чтобы получить наилучший результат. Задай мне уточняющие вопросы, если нужно.</div>
+        <div class="compare-why">ИИ сам составит оптимальный промпт под вашу задачу — вы просто скопируете и используете его.</div>
+      </div>
+    </div>
+
+    <div class="lesson-nav">
+      <button class="ln-btn" onclick="goTo(3)">← Урок 4</button>
+      <button class="ln-btn primary" onclick="goTo(5)">Урок 6: Ограничения →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════ УРОК 6 ══════════════════════ -->
+  <div class="lesson" id="lesson-5">
+    <div class="lesson-header">
+      <div class="lesson-number" style="background: linear-gradient(135deg,#e05555,#e8734a)">6</div>
+      <div class="lesson-meta">
+        <div class="lesson-tag" style="color:#e05555">Важно знать</div>
+        <div class="lesson-title">Ограничения ИИ: чего он не умеет</div>
+      </div>
+    </div>
+
+    <div class="analogy">
+      <div class="analogy-icon">⚠️</div>
+      <div class="analogy-text">
+        ИИ — мощный инструмент, но не волшебная палочка. Знание его <strong>реальных ограничений</strong> помогает использовать его грамотно и не попасть в неприятную ситуацию.
+      </div>
+    </div>
+
+    <!-- СЕТКА ОГРАНИЧЕНИЙ -->
+    <div class="tips-grid" style="grid-template-columns: repeat(auto-fill, minmax(260px,1fr))">
+
+      <div class="tip-card" style="border-color:rgba(224,85,85,0.22); background: rgba(224,85,85,0.04)">
+        <div class="tip-icon">🪟</div>
+        <div class="tip-title">Контекстное окно</div>
+        <div class="tip-text">У каждого чата есть лимит объёма. Если диалог слишком длинный, ИИ начинает «забывать» то, что было в начале. Для длинных проектов — начинайте новый чат с кратким резюме.</div>
+      </div>
+
+      <div class="tip-card" style="border-color:rgba(224,85,85,0.22); background: rgba(224,85,85,0.04)">
+        <div class="tip-icon">📅</div>
+        <div class="tip-title">Устаревшие данные</div>
+        <div class="tip-text">ИИ обучен на данных до определённой даты — он не знает последних новостей, свежих цен, актуальных законов. Для актуальной информации нужно проверять внешние источники.</div>
+      </div>
+
+      <div class="tip-card" style="border-color:rgba(224,85,85,0.22); background: rgba(224,85,85,0.04)">
+        <div class="tip-icon">🎭</div>
+        <div class="tip-title">Галлюцинации</div>
+        <div class="tip-text">ИИ может уверенно называть несуществующие книги, выдуманных авторов, неверные цифры или ложные факты. Всегда проверяйте важную фактическую информацию в достоверных источниках.</div>
+      </div>
+
+      <div class="tip-card" style="border-color:rgba(224,85,85,0.22); background: rgba(224,85,85,0.04)">
+        <div class="tip-icon">🔢</div>
+        <div class="tip-title">Слабая математика</div>
+        <div class="tip-text">ИИ плохо справляется со сложными вычислениями, цепочками чисел или точной арифметикой. Для расчётов лучше использовать калькулятор или Excel и просить ИИ лишь написать формулу.</div>
+      </div>
+
+      <div class="tip-card" style="border-color:rgba(224,85,85,0.22); background: rgba(224,85,85,0.04)">
+        <div class="tip-icon">🚫</div>
+        <div class="tip-title">Нет памяти между чатами</div>
+        <div class="tip-text">По умолчанию ИИ не помнит, о чём вы говорили в прошлых сессиях. Каждый новый чат — чистый лист. Используйте мастер-промпт, чтобы быстро восстановить контекст.</div>
+      </div>
+
+      <div class="tip-card" style="border-color:rgba(224,85,85,0.22); background: rgba(224,85,85,0.04)">
+        <div class="tip-icon">⚖️</div>
+        <div class="tip-title">Нет личного опыта</div>
+        <div class="tip-text">ИИ не знает вашу отрасль «изнутри», не чувствует нюансов живого общения, не понимает локальной специфики вашего рынка. Его ответы — это обобщения, а не экспертиза конкретной ситуации.</div>
+      </div>
+
+      <div class="tip-card" style="border-color:rgba(224,85,85,0.22); background: rgba(224,85,85,0.04)">
+        <div class="tip-icon">🌍</div>
+        <div class="tip-title">Языковые нюансы</div>
+        <div class="tip-text">ИИ может неточно передавать культурные особенности, юмор, идиомы или профессиональный сленг. Особенно это заметно при переводах и работе с эмоциональными текстами.</div>
+      </div>
+
+      <div class="tip-card" style="border-color:rgba(224,85,85,0.22); background: rgba(224,85,85,0.04)">
+        <div class="tip-icon">🔒</div>
+        <div class="tip-title">Ограничения по темам</div>
+        <div class="tip-text">ИИ намеренно отказывается выполнять ряд запросов: вредоносный контент, юридические/медицинские советы без оговорок, информацию, нарушающую правила платформы.</div>
+      </div>
+
+    </div>
+
+    <!-- ИТОГОВАЯ КАРТОЧКА -->
+    <div class="cheat mt-big" style="margin-top: 8px;">
+      <div class="cheat-title">✅ Как работать с ограничениями</div>
+      <div class="cheat-grid">
+        <div class="cheat-item">
+          <div class="ci-label">Проверяйте факты</div>
+          <div class="ci-val">Особенно цифры, даты, имена, ссылки и юридические нормы</div>
+        </div>
+        <div class="cheat-item">
+          <div class="ci-label">Новый чат = свежий старт</div>
+          <div class="ci-val">Не надейтесь, что ИИ помнит прошлые беседы — напомните контекст</div>
+        </div>
+        <div class="cheat-item">
+          <div class="ci-label">Используйте ИИ как черновик</div>
+          <div class="ci-val">Финальную правку и проверку всегда делайте сами</div>
+        </div>
+        <div class="cheat-item">
+          <div class="ci-label">Дробите длинные задачи</div>
+          <div class="ci-val">Не перегружайте один чат — работайте итерационно</div>
+        </div>
+        <div class="cheat-item">
+          <div class="ci-label">Указывайте актуальную дату</div>
+          <div class="ci-val">«Сейчас [год], учти это» — помогает при вопросах о текущем</div>
+        </div>
+        <div class="cheat-item">
+          <div class="ci-label">Доверяйте, но проверяйте</div>
+          <div class="ci-val">ИИ — отличный помощник, но финальное решение всегда за вами</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-nav">
+      <button class="ln-btn" onclick="goTo(4)">← Урок 5</button>
+      <button class="ln-btn primary" onclick="finish()">🎉 Завершить курс</button>
+    </div>
+  </div>
+
+  <!-- ФИНАЛЬНЫЙ ЭКРАН -->
+  <div class="finish-screen" id="finish">
+    <div class="finish-trophy">🏆</div>
+    <div class="finish-title">Курс пройден!</div>
+    <div class="finish-sub">Вы освоили основы промпт-инженеринга. Теперь вы знаете, как получать от ИИ именно то, что нужно.</div>
+    <div class="finish-cards">
+      <div class="finish-card"><strong>Урок 1</strong>Промпт — это запрос. Чем точнее — тем лучше результат.</div>
+      <div class="finish-card"><strong>Урок 2</strong>Формула: Роль + Задача + Контекст + Формат</div>
+      <div class="finish-card"><strong>Урок 3</strong>Итерируйте! Первый ответ — черновик.</div>
+      <div class="finish-card"><strong>Урок 4</strong>Используйте шаблоны и практикуйтесь каждый день.</div>
+      <div class="finish-card"><strong>Урок 5</strong>Лайфхаки: план, вопросы, мастер-промпт, мета-промпт.</div>
+      <div class="finish-card"><strong>Урок 6</strong>ИИ ограничен: проверяйте факты, дробите задачи.</div>
+    </div>
+    <button class="ln-btn" style="margin: 32px auto 0; display: flex;" onclick="goTo(0); document.getElementById('finish').classList.remove('show')">↩ Пройти снова</button>
+  </div>
+
+</div><!-- /lessons -->
+
+<!-- PROGRESS DOTS -->
+<div class="progress-wrap" id="progress">
+  <div class="prog-dot" onclick="goTo(0)"></div>
+  <div class="prog-dot" onclick="goTo(1)"></div>
+  <div class="prog-dot" onclick="goTo(2)"></div>
+  <div class="prog-dot" onclick="goTo(3)"></div>
+  <div class="prog-dot" onclick="goTo(4)"></div>
+  <div class="prog-dot" onclick="goTo(5)"></div>
+</div>
+
+<script>
+  let currentLesson = 0;
+  const totalLessons = 6;
+  const completed = new Set();
+
+  function goTo(n) {
+    document.querySelectorAll('.lesson').forEach((el,i) => {
+      el.classList.toggle('active', i === n);
+    });
+    document.querySelectorAll('.nav-btn').forEach((btn,i) => {
+      btn.classList.toggle('active', i === n);
+    });
+    completed.add(currentLesson);
+    currentLesson = n;
+    updateDots();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateDots() {
+    document.querySelectorAll('.prog-dot').forEach((d, i) => {
+      d.classList.toggle('done', completed.has(i));
+    });
+  }
+
+  function answer(el, correct, msg) {
+    const quiz = el.closest('.quiz');
+    if (quiz.classList.contains('locked')) return;
+    quiz.classList.add('locked');
+    el.classList.add(correct ? 'correct' : 'wrong');
+    el.querySelectorAll('.quiz-option').forEach && null;
+
+    // find feedback element in same quiz
+    const feedbacks = quiz.querySelectorAll('.quiz-feedback');
+    const feed = feedbacks[0];
+    if (feed) {
+      feed.textContent = msg;
+      feed.className = 'quiz-feedback show ' + (correct ? 'ok' : 'no');
+    }
+
+    if (!correct) {
+      // highlight correct
+      quiz.querySelectorAll('.quiz-option').forEach(opt => {
+        if (opt !== el) {
+          opt.style.opacity = '0.45';
+        }
+      });
+    }
+  }
+
+  function buildPrompt() {
+    const role = document.getElementById('b-role').value.trim();
+    const task = document.getElementById('b-task').value.trim();
+    const context = document.getElementById('b-context').value.trim();
+    const format = document.getElementById('b-format').value.trim();
+
+    if (!task) {
+      alert('Пожалуйста, укажите хотя бы задачу!');
+      return;
+    }
+
+    let parts = [];
+    if (role) parts.push(role + '.');
+    parts.push(task + (task.endsWith('.') || task.endsWith('!') || task.endsWith('?') ? '' : '.'));
+    if (context) parts.push(context + (context.endsWith('.') ? '' : '.'));
+    if (format) parts.push('Формат: ' + format + (format.endsWith('.') ? '' : '.'));
+
+    const prompt = parts.join('\n');
+    document.getElementById('built-text').textContent = prompt;
+    document.getElementById('built-result').classList.add('show');
+  }
+
+  function copyPrompt() {
+    const text = document.getElementById('built-text').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector('.copy-btn');
+      btn.textContent = '✓ Скопировано!';
+      setTimeout(() => btn.textContent = '📋 Скопировать', 2000);
+    });
+  }
+
+  function finish() {
+    completed.add(currentLesson);
+    updateDots();
+    document.querySelectorAll('.lesson').forEach(el => el.classList.remove('active'));
+    document.getElementById('finish').classList.add('show');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+</body>
+</html>
